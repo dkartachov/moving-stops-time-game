@@ -7,6 +7,7 @@ SceneOne::SceneOne() {
 
 	ground->Position(Vector2(Graphics::SCREEN_WIDTH / 2, Graphics::SCREEN_HEIGHT / 2));
 	player->Position(player->GetPosition() + 200 * VEC2_DOWN);
+
 }
 
 SceneOne::~SceneOne() {
@@ -24,7 +25,6 @@ void SceneOne::Update() {
 void SceneOne::LateUpdate() {
 
 	if (Collision::AABB(player->GetRect(), ground->GetRect())) {
-		
 		printf("Collision detected\n");
 		player->LateUpdate();
 	}	

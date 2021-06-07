@@ -9,6 +9,7 @@ public:
 	Sprite(std::string text, std::string fontPath, int size, SDL_Color color = {0, 0, 0});
 
 	SDL_Rect GetRect();
+	virtual void Update();
 	virtual void Render();
 protected:
 	SDL_Texture* texture;

@@ -1,6 +1,7 @@
 #include "Sprite.h"
 
 Sprite::Sprite(const char* filename) {
+
 	graphics = Graphics::Instance();
 	texture = AssetManager::Instance()->GetTexture(filename);
 
@@ -13,6 +14,7 @@ Sprite::Sprite(const char* filename) {
 }
 
 Sprite::Sprite(const char* filename, int x, int y, int w, int h) {
+
 	graphics = Graphics::Instance();
 	texture = AssetManager::Instance()->GetTexture(filename);
 
@@ -45,7 +47,7 @@ SDL_Rect Sprite::GetRect() {
 	return renderRect;
 }
 
-void Sprite::Render() {
+void Sprite::Update() {
 
 	Vector2 pos = GetPosition(world);
 	Vector2 scale = GetScale(world);
@@ -54,6 +56,9 @@ void Sprite::Render() {
 	renderRect.y = (int)(pos.y - height * scale.y * 0.5f);
 	renderRect.w = (int)(width * scale.x);
 	renderRect.h = (int)(height * scale.y);
+}
+
+void Sprite::Render() {
 
 	graphics->DrawTexture(texture, clipped ? &clipRect : NULL, &renderRect, GetRotation(world));
 }

@@ -2,6 +2,8 @@
 
 Player::Player() {
 
+	grounded = false;
+
 	inputManager = InputManager::Instance();
 	timer = Timer::Instance();
 
@@ -23,7 +25,6 @@ Player::~Player() {
 void Player::Jump() {
 
 	printf("Jump!\n");
-	Translate(2 * VEC2_DOWN);
 	velocity.y = -100.0f;
 }
 
@@ -41,17 +42,21 @@ void Player::Update() {
 	position = GetPosition();
 
 	velocity.y += g * timer->DeltaTime();
+
+	//position.y += velocity.y * timer->DeltaTime() + 0.5f * g * timer->DeltaTime() * timer->DeltaTime();
+
 	deltaY = velocity.y * timer->DeltaTime() + 0.5f * g * timer->DeltaTime() * timer->DeltaTime();
 
 	Translate(deltaY * VEC2_UP);
 
-	printf("Position: (%f, %f)\n", position.x, position.y);
-	printf("Velocity: (%f, %f)\n", velocity.x, velocity.y);
+	staticSprite->Update();
 }
 
 void Player::LateUpdate() {
 
 	Translate(deltaY * VEC2_DOWN);
+	velocity.y = 0.0f;
+	staticSprite->Update();
 }
 
 void Player::Render() {
