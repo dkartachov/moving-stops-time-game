@@ -23,8 +23,11 @@ void SceneOne::Update() {
 
 void SceneOne::LateUpdate() {
 
-	if (Collision::AABB(player->GetRect(), ground->GetRect()))
+	if (Collision::AABB(player->GetRect(), ground->GetRect())) {
+		
 		printf("Collision detected\n");
+		player->LateUpdate();
+	}	
 	else
 		printf("No collision\n");
 }

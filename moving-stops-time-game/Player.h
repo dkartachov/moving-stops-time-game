@@ -24,4 +24,8 @@ private:
 
 	Vector2 position;
 	Vector2 velocity;
+
+	bool grounded;
+	float deltaY;
+	const float g = 200;
 };
