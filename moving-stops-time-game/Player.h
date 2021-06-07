@@ -12,6 +12,8 @@ public:
 	void Update();
 	void Render();
 
+	SDL_Rect GetRect();
+
 private:
 	InputManager* inputManager;
 	Timer* timer;

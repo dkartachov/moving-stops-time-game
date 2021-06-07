@@ -3,6 +3,5 @@
 
 class Collision {
 public:
-	bool AABB(SDL_Rect A, SDL_Rect B);
-private:
+	static bool AABB(SDL_Rect A, SDL_Rect B);
 };

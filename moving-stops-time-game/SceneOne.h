@@ -1,5 +1,6 @@
 #pragma once
 #include "Player.h"
+#include "Collision.h"
 
 class SceneOne {
 public:
@@ -7,6 +8,7 @@ public:
 	~SceneOne();
 
 	void Update();
+	void LateUpdate();
 	void Render();
 
 private:

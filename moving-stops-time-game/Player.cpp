@@ -46,3 +46,7 @@ void Player::Render() {
 		staticSprite->Render();
 	}
 }
+
+SDL_Rect Player::GetRect() {
+	return staticSprite->GetRect();
+}

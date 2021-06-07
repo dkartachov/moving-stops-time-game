@@ -45,7 +45,7 @@ void Game::LateUpdate() {
 
 	////COLLISION DETECTION HERE////
 
-
+	sceneOne->LateUpdate();
 
 	///////////////////////////////
 
