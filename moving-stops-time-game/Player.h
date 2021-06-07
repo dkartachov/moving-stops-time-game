@@ -10,6 +10,7 @@ public:
 	void Jump();
 
 	void Update();
+	void LateUpdate();
 	void Render();
 
 	SDL_Rect GetRect();

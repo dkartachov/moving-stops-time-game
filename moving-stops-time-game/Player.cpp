@@ -39,6 +39,11 @@ void Player::Update() {
 	Translate(100.0f * timer->DeltaTime() * VEC2_UP);
 }
 
+void Player::LateUpdate() {
+
+
+}
+
 void Player::Render() {
 
 	if (IsActive()) {
