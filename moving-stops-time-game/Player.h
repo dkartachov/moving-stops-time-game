@@ -7,6 +7,8 @@ public:
 	Player();
 	~Player();
 
+	void Grounded(bool state);
+	bool IsMoving();
 	void Jump();
 
 	void Update();
@@ -25,7 +27,8 @@ private:
 	Vector2 position;
 	Vector2 velocity;
 
+	bool moving;
 	bool grounded;
 	float deltaY;
-	const float g = 200;
+	const float g = 300;
 };

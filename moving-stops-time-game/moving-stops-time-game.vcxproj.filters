@@ -63,14 +63,14 @@
     <ClCompile Include="InputManager.cpp">
       <Filter>Source Files\Managers</Filter>
     </ClCompile>
-    <ClCompile Include="Player.cpp">
+    <ClCompile Include="Collision.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="SceneOne.cpp">
-      <Filter>Source Files</Filter>
+      <Filter>Source Files\Moving Stops Time</Filter>
     </ClCompile>
-    <ClCompile Include="Collision.cpp">
-      <Filter>Source Files</Filter>
+    <ClCompile Include="Player.cpp">
+      <Filter>Source Files\Moving Stops Time</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -104,14 +104,14 @@
     <ClInclude Include="InputManager.h">
       <Filter>Header Files\Managers</Filter>
     </ClInclude>
-    <ClInclude Include="Player.h">
+    <ClInclude Include="Collision.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="SceneOne.h">
-      <Filter>Header Files</Filter>
+      <Filter>Header Files\Moving Stops Time</Filter>
     </ClInclude>
-    <ClInclude Include="Collision.h">
-      <Filter>Header Files</Filter>
+    <ClInclude Include="Player.h">
+      <Filter>Header Files\Moving Stops Time</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

@@ -14,5 +14,7 @@ public:
 private:
 
 	Player* player;
-	Sprite* ground;
+	Sprite* ground, *ground1;
+	Sprite* platform;
+	int platformDirection = 1;
 };
