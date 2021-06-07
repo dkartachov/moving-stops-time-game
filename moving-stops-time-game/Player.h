@@ -1,10 +1,11 @@
 #pragma once
 #include "AnimatedSprite.h"
 #include "InputManager.h"
+#include "Collision.h"
 
 class Player : public GameEntity {
 public:
-	Player();
+	Player(Collision* coll);
 	~Player();
 
 	void Grounded(bool state);
@@ -13,11 +14,13 @@ public:
 
 	void Update();
 	void LateUpdate();
+	void FakeUpdate();
 	void Render();
 
 	SDL_Rect GetRect();
 
 private:
+	Collision* collision;
 	InputManager* inputManager;
 	Timer* timer;
 

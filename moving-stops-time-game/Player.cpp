@@ -1,6 +1,8 @@
 #include "Player.h"
 
-Player::Player() {
+Player::Player(Collision* coll) {
+
+	collision = coll;
 
 	moving = false;
 	grounded = false;
@@ -33,7 +35,6 @@ bool Player::IsMoving() {
 
 void Player::Jump() {
 
-	printf("Jump!\n");
 	grounded = false;
 	velocity.y = -200.0f;
 }
@@ -68,8 +69,8 @@ void Player::Update() {
 
 	Translate(deltaY * VEC2_UP);
 
-	printf("Player position: (%f, %f)\n", GetPosition().x, GetPosition().y);
-	printf("Player velocity: (%f, %f)\n", velocity.x, velocity.y);
+	//printf("Player position: (%f, %f)\n", GetPosition().x, GetPosition().y);
+	//printf("Player velocity: (%f, %f)\n", velocity.x, velocity.y);
 
 	staticSprite->Update();
 }
@@ -79,6 +80,11 @@ void Player::LateUpdate() {
 	Translate(deltaY * VEC2_DOWN);
 	staticSprite->Update();
 	velocity.y = 0.0f;
+}
+
+void Player::FakeUpdate() {
+
+	printf("Collision: %d\n", collision->AABB(GetRect()));
 }
 
 void Player::Render() {

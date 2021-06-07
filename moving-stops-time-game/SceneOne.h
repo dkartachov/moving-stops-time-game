@@ -12,7 +12,7 @@ public:
 	void Render();
 
 private:
-
+	Collision* collision;
 	Player* player;
 	Sprite* ground, *ground1;
 	Sprite* platform;

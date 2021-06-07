@@ -1,5 +1,14 @@
 #include "Collision.h"
 
+Collision::Collision() {
+
+}
+
+void Collision::AddCollider(Sprite* collider) {
+
+	colliders.push_back(collider);
+}
+
 bool Collision::AABB(SDL_Rect A, SDL_Rect B) {
 
 	if ( (A.x < B.x + B.w) &&
@@ -8,5 +17,19 @@ bool Collision::AABB(SDL_Rect A, SDL_Rect B) {
 		 (A.y + A.h > B.y) )
 		return true;
 
+	return false;
+}
+
+bool Collision::AABB(SDL_Rect A) {
+
+	for (auto colls : colliders) {
+
+		if ((A.x < colls->GetRect().x + colls->GetRect().w) &&
+			(A.x + A.w > colls->GetRect().x) &&
+			(A.y < colls->GetRect().y + colls->GetRect().h) &&
+			(A.y + A.h > colls->GetRect().y)) {
+			return true;
+		}	
+	}
 	return false;
 }
