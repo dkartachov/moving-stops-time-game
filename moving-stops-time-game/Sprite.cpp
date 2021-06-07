@@ -41,6 +41,10 @@ Sprite::Sprite(std::string text, std::string fontPath, int size, SDL_Color color
 	renderRect.h = height;
 }
 
+SDL_Rect Sprite::GetRect() {
+	return renderRect;
+}
+
 void Sprite::Render() {
 
 	Vector2 pos = GetPosition(world);
