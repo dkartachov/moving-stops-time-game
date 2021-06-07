@@ -3,9 +3,6 @@
 #include "InputManager.h"
 #include "AudioManager.h"
 #include "Player.h"
-#include "MainMenu.h"
-#include "PauseMenu.h"
-#include "LevelOne.h"
 
 class Game {
 public:
@@ -32,11 +29,6 @@ private:
 	AssetManager* assetManager;
 	InputManager* inputManager;
 	AudioManager* audioManager;
-
-	MainMenu* mainMenu;
-	PauseMenu* pauseMenu;
-
-	LevelOne* levelOne;
 
 	Player* player;
 };
