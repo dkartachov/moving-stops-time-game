@@ -47,10 +47,10 @@ void Player::Update() {
 		//position.y += velocity.y * timer->DeltaTime() + 0.5f * g * timer->DeltaTime() * timer->DeltaTime();
 
 		deltaY = velocity.y * timer->DeltaTime() + 0.5f * g * timer->DeltaTime() * timer->DeltaTime();
-
-		Translate(deltaY * VEC2_UP);
+	
 	}
 	
+	Translate(deltaY * VEC2_UP);
 
 	printf("Player position: (%f, %f)\n", GetPosition().x, GetPosition().y);
 
