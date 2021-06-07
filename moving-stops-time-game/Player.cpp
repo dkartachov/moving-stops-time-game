@@ -25,6 +25,7 @@ Player::~Player() {
 void Player::Jump() {
 
 	printf("Jump!\n");
+	grounded = false;
 	velocity.y = -100.0f;
 }
 
@@ -39,15 +40,19 @@ void Player::Update() {
 	if (inputManager->KeyPressed(SDL_SCANCODE_SPACE))
 		Jump();
 
-	position = GetPosition();
+	if (!grounded) {
 
-	velocity.y += g * timer->DeltaTime();
+		velocity.y += g * timer->DeltaTime();
 
-	//position.y += velocity.y * timer->DeltaTime() + 0.5f * g * timer->DeltaTime() * timer->DeltaTime();
+		//position.y += velocity.y * timer->DeltaTime() + 0.5f * g * timer->DeltaTime() * timer->DeltaTime();
 
-	deltaY = velocity.y * timer->DeltaTime() + 0.5f * g * timer->DeltaTime() * timer->DeltaTime();
+		deltaY = velocity.y * timer->DeltaTime() + 0.5f * g * timer->DeltaTime() * timer->DeltaTime();
 
-	Translate(deltaY * VEC2_UP);
+		Translate(deltaY * VEC2_UP);
+	}
+	
+
+	printf("Player position: (%f, %f)\n", GetPosition().x, GetPosition().y);
 
 	staticSprite->Update();
 }
@@ -55,8 +60,8 @@ void Player::Update() {
 void Player::LateUpdate() {
 
 	Translate(deltaY * VEC2_DOWN);
-	velocity.y = 0.0f;
 	staticSprite->Update();
+	grounded = true;
 }
 
 void Player::Render() {

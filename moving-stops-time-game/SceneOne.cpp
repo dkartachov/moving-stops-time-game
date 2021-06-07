@@ -6,7 +6,8 @@ SceneOne::SceneOne() {
 	ground = new Sprite("ground.png");
 
 	ground->Position(Vector2(Graphics::SCREEN_WIDTH / 2, Graphics::SCREEN_HEIGHT / 2));
-	player->Position(player->GetPosition() + 200 * VEC2_DOWN);
+	ground->Scale(Vector2(5, 1));
+	player->Position(player->GetPosition() + 400 * VEC2_DOWN);
 
 }
 
