@@ -24,7 +24,7 @@ Game::Game() {
 	inputManager = InputManager::Instance();
 	audioManager = AudioManager::Instance();
 
-	player = new Player();
+	sceneOne = new SceneOne();
 }
 
 void Game::EarlyUpdate() {
@@ -36,7 +36,7 @@ void Game::Update() {
 
 	////GAME ENTITY UPDATES HERE////
 	
-	
+	sceneOne->Update();
 
 	///////////////////////////////
 }
@@ -58,7 +58,7 @@ void Game::Render() {
 
 	////RENDER ENTITIES HERE////
 
-	
+	sceneOne->Render();
 		
 	///////////////////////////
 

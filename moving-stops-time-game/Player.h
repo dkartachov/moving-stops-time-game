@@ -7,13 +7,15 @@ public:
 	Player();
 	~Player();
 
+	void Jump();
+
 	void Update();
 	void Render();
+
 private:
 	InputManager* inputManager;
 	Timer* timer;
 
-	GameEntity* player;
 	Sprite* staticSprite;
 	AnimatedSprite* idleAnim;
 

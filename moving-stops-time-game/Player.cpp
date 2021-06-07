@@ -5,28 +5,38 @@ Player::Player() {
 	inputManager = InputManager::Instance();
 	timer = Timer::Instance();
 
-	player = new GameEntity(100, 700);
+	Position(Vector2(Graphics::SCREEN_WIDTH / 2, Graphics::SCREEN_HEIGHT / 2));
+
 	staticSprite = new Sprite("hand-cursor.png");
-	staticSprite->Parent(player);
+	staticSprite->Parent(this);
 	staticSprite->Position(VEC2_ZERO);
 }
 
 Player::~Player() {
+
 	delete inputManager;
 	inputManager = NULL;
+}
+
+void Player::Jump() {
+
+	printf("Jump!\n");
+
+
 }
 
 void Player::Update() {
 
 	if (inputManager->KeyDown(SDL_SCANCODE_D))
-		player->Translate(100.0f * timer->DeltaTime() * VEC2_RIGHT);
+		Translate(100.0f * timer->DeltaTime() * VEC2_RIGHT);
 
 	if (inputManager->KeyDown(SDL_SCANCODE_A))
-		player->Translate(100.0f * timer->DeltaTime() * VEC2_LEFT);
+		Translate(100.0f * timer->DeltaTime() * VEC2_LEFT);
 
-	if (inputManager->KeyPressed(SDL_SCANCODE_SPACE)) {
-		printf("Jump!\n");
-	}
+	if (inputManager->KeyPressed(SDL_SCANCODE_SPACE))
+		Jump();
+
+	Translate(100.0f * timer->DeltaTime() * VEC2_UP);
 }
 
 void Player::Render() {

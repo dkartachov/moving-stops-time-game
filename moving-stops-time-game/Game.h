@@ -2,7 +2,7 @@
 #include "AnimatedSprite.h"
 #include "InputManager.h"
 #include "AudioManager.h"
-#include "Player.h"
+#include "SceneOne.h"
 
 class Game {
 public:
@@ -30,5 +30,5 @@ private:
 	InputManager* inputManager;
 	AudioManager* audioManager;
 
-	Player* player;
+	SceneOne* sceneOne;
 };

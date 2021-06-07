@@ -154,6 +154,7 @@
     <ClCompile Include="InputManager.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Player.cpp" />
+    <ClCompile Include="SceneOne.cpp" />
     <ClCompile Include="Sprite.cpp" />
     <ClCompile Include="Timer.cpp" />
   </ItemGroup>
@@ -167,6 +168,7 @@
     <ClInclude Include="InputManager.h" />
     <ClInclude Include="Mathematics.h" />
     <ClInclude Include="Player.h" />
+    <ClInclude Include="SceneOne.h" />
     <ClInclude Include="Sprite.h" />
     <ClInclude Include="Timer.h" />
   </ItemGroup>
