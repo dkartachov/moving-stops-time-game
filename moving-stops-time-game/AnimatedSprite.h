@@ -9,7 +9,8 @@ public:
 public:
 	AnimatedSprite(const char* filename, int x, int y, int w, int h, int frameCount, float animationSpeed, ANIM_DIR animDir = horizontal);
 	void WrapMode(WRAP_MODE mode);
-	void Update();
+
+	void Play();
 private:
 	Timer* timer;
 	int startX, startY;

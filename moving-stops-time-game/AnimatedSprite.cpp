@@ -22,7 +22,8 @@ void AnimatedSprite::WrapMode(WRAP_MODE mode) {
 	wrapMode = mode;
 }
 
-void AnimatedSprite::Update() {
+void AnimatedSprite::Play() {
+
 	if (!animationDone) {
 
 		animationTimer += timer->DeltaTime();
@@ -43,5 +44,6 @@ void AnimatedSprite::Update() {
 		else
 			clipRect.y = startY + (int)(animationTimer / timePerFrame) * height;
 	}
+
 }
 

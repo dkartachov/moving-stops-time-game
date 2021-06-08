@@ -5,12 +5,17 @@
 
 class Player : public GameEntity {
 public:
+	enum ANIM {IDLE = 0, RUNNING};
+public:
 	Player(Collision* coll);
 	~Player();
 
 	void Grounded(bool state);
 	bool IsMoving();
 	void Jump();
+
+	ANIM CurrentAnim();
+	void PlayAnim(ANIM anim);
 
 	void Update();
 	void LateUpdate();
@@ -23,8 +28,9 @@ private:
 	InputManager* inputManager;
 	Timer* timer;
 
-	Sprite* staticSprite;
+	ANIM currentAnim;
 	AnimatedSprite* idleAnim;
+	AnimatedSprite* runAnim;
 
 	Vector2 prevPos;
 	Vector2 position;
