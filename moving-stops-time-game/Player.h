@@ -14,7 +14,6 @@ public:
 
 	void Update();
 	void LateUpdate();
-	void FakeUpdate();
 	void Render();
 
 	SDL_Rect GetRect();
@@ -27,6 +26,7 @@ private:
 	Sprite* staticSprite;
 	AnimatedSprite* idleAnim;
 
+	Vector2 prevPos;
 	Vector2 position;
 	Vector2 velocity;
 

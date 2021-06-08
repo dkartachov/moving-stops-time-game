@@ -42,8 +42,6 @@ SceneOne::~SceneOne() {
 void SceneOne::Update() {
 
 	player->Update();
-	//printf("Player is moving: %d\n", player->IsMoving());
-
 	ground->Update();
 	ground1->Update();
 	
@@ -60,27 +58,7 @@ void SceneOne::Update() {
 
 void SceneOne::LateUpdate() {
 
-	if (Collision::AABB(player->GetRect(), ground->GetRect())) {
-		//printf("Collision detected\n");
-		player->Grounded(true);
-		player->LateUpdate();
-	}
-	else if(Collision::AABB(player->GetRect(), ground1->GetRect())) {
-		//printf("Collision detected\n");
-		player->Grounded(true);
-		player->LateUpdate();
-	}
-	else if (Collision::AABB(player->GetRect(), platform->GetRect())) {
-		//printf("Collision detected\n");
-		player->Grounded(true);
-		player->LateUpdate();
-	}
-	else {
-		//printf("No collision\n");
-		player->Grounded(false);
-	}
-
-	player->FakeUpdate();
+	player->LateUpdate();
 }
 
 void SceneOne::Render() {

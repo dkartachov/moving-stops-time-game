@@ -20,7 +20,7 @@ bool Collision::AABB(SDL_Rect A, SDL_Rect B) {
 	return false;
 }
 
-bool Collision::AABB(SDL_Rect A) {
+Sprite* Collision::AABB(SDL_Rect A) {
 
 	for (auto colls : colliders) {
 
@@ -28,8 +28,10 @@ bool Collision::AABB(SDL_Rect A) {
 			(A.x + A.w > colls->GetRect().x) &&
 			(A.y < colls->GetRect().y + colls->GetRect().h) &&
 			(A.y + A.h > colls->GetRect().y)) {
-			return true;
-		}	
+			
+			return colls;
+		}
 	}
-	return false;
+
+	return nullptr;
 }

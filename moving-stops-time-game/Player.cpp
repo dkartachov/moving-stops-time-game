@@ -41,6 +41,8 @@ void Player::Jump() {
 
 void Player::Update() {
 
+	prevPos = GetPosition();
+
 	if (velocity.x > 0.0f || velocity.x < 0.0f)
 		moving = true;
 	else
@@ -69,22 +71,22 @@ void Player::Update() {
 
 	Translate(deltaY * VEC2_UP);
 
-	//printf("Player position: (%f, %f)\n", GetPosition().x, GetPosition().y);
-	//printf("Player velocity: (%f, %f)\n", velocity.x, velocity.y);
-
 	staticSprite->Update();
 }
 
 void Player::LateUpdate() {
 
-	Translate(deltaY * VEC2_DOWN);
-	staticSprite->Update();
-	velocity.y = 0.0f;
-}
+	Sprite* col = collision->AABB(GetRect());
 
-void Player::FakeUpdate() {
+	if (col != nullptr) {
 
-	printf("Collision: %d\n", collision->AABB(GetRect()));
+		if (GetRect().y < col->GetRect().y || GetRect().y > col->GetRect().y) {
+
+			Position(Vector2(GetPosition().x, prevPos.y));
+			staticSprite->Update();
+			velocity.y = 0.0f;
+		}
+	}
 }
 
 void Player::Render() {

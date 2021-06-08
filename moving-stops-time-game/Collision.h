@@ -10,7 +10,7 @@ public:
 
 	void AddCollider(Sprite* collider);
 
-	bool AABB(SDL_Rect A);
+	Sprite* AABB(SDL_Rect A);
 	static bool AABB(SDL_Rect A, SDL_Rect B);
 
 private:
