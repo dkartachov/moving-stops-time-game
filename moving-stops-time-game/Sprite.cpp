@@ -47,7 +47,7 @@ SDL_Rect Sprite::GetRect() {
 	return renderRect;
 }
 
-void Sprite::Update() {
+void Sprite::Render() {
 
 	Vector2 pos = GetPosition(world);
 	Vector2 scale = GetScale(world);
@@ -56,9 +56,6 @@ void Sprite::Update() {
 	renderRect.y = (int)(pos.y - height * scale.y * 0.5f);
 	renderRect.w = (int)(width * scale.x);
 	renderRect.h = (int)(height * scale.y);
-}
-
-void Sprite::Render() {
 
 	graphics->DrawTexture(texture, clipped ? &clipRect : NULL, &renderRect, GetRotation(world));
 }

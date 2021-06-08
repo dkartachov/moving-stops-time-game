@@ -2,10 +2,11 @@
 #include "AnimatedSprite.h"
 #include "InputManager.h"
 #include "Collision.h"
+#include "BoxCollider.h"
 
 class Player : public GameEntity {
 public:
-	enum ANIM {IDLE = 0, RUNNING};
+	enum ANIM {IDLE = 0, RUNNING, JUMP, LAND};
 public:
 	Player(Collision* coll);
 	~Player();
@@ -21,9 +22,8 @@ public:
 	void LateUpdate();
 	void Render();
 
-	SDL_Rect GetRect();
-
 private:
+	BoxCollider* box;
 	Collision* collision;
 	InputManager* inputManager;
 	Timer* timer;
@@ -31,6 +31,8 @@ private:
 	ANIM currentAnim;
 	AnimatedSprite* idleAnim;
 	AnimatedSprite* runAnim;
+	AnimatedSprite* jumpAnim;
+	AnimatedSprite* landAnim;
 
 	Vector2 prevPos;
 	Vector2 position;

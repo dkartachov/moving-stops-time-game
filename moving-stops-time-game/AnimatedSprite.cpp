@@ -44,6 +44,10 @@ void AnimatedSprite::Play() {
 		else
 			clipRect.y = startY + (int)(animationTimer / timePerFrame) * height;
 	}
-
 }
 
+void AnimatedSprite::Reset() {
+
+	animationDone = false;
+	animationTimer = 0.0f;
+}

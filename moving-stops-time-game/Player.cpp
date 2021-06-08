@@ -2,15 +2,19 @@
 
 Player::Player(Collision* coll) {
 
+	Position(Vector2(Graphics::SCREEN_WIDTH / 2, Graphics::SCREEN_HEIGHT / 2));
+
 	collision = coll;
 
 	moving = false;
 	grounded = false;
 
+	box = new BoxCollider(20, 50);
+	box->Parent(this);
+	box->Position(VEC2_ZERO);
+
 	inputManager = InputManager::Instance();
 	timer = Timer::Instance();
-
-	Position(Vector2(Graphics::SCREEN_WIDTH / 2, Graphics::SCREEN_HEIGHT / 2));
 
 	velocity = VEC2_ZERO;
 
@@ -21,6 +25,18 @@ Player::Player(Collision* coll) {
 	runAnim = new AnimatedSprite("run.png", 0, 0, 80, 80, 24, 1);
 	runAnim->Parent(this);
 	runAnim->Position(VEC2_ZERO);
+
+	jumpAnim = new AnimatedSprite("jump.png", 0, 0, 80, 80, 8, 0.5);
+	jumpAnim->WrapMode(AnimatedSprite::once);
+	jumpAnim->Parent(this);
+	jumpAnim->Position(VEC2_ZERO);
+
+	landAnim = new AnimatedSprite("jump.png", 80 * 8, 0, 80, 80, 7, 0.85);
+	landAnim->WrapMode(AnimatedSprite::once);
+	landAnim->Parent(this);
+	landAnim->Position(VEC2_ZERO);
+
+	Scale(2 * VEC2_ONE);
 }
 
 Player::~Player() {
@@ -41,6 +57,7 @@ void Player::Jump() {
 
 	grounded = false;
 	velocity.y = -200.0f;
+	jumpAnim->Reset();
 }
 
 void Player::PlayAnim(ANIM anim) {
@@ -58,7 +75,18 @@ void Player::PlayAnim(ANIM anim) {
 		runAnim->Play();
 		break;
 
+	case JUMP:
+
+		jumpAnim->Play();
+		break;
+
+	case LAND:
+
+		landAnim->Play();
+		break;
+
 	default:
+
 		break;
 	}
 }
@@ -72,20 +100,25 @@ void Player::Update() {
 	else
 		moving = false;
 
-	if (inputManager->KeyDown(SDL_SCANCODE_D)) {
-
-		PlayAnim(RUNNING);
+	if (inputManager->KeyDown(SDL_SCANCODE_D))
 		velocity.x = 200.0f * timer->DeltaTime();
-	}
-	else if (inputManager->KeyDown(SDL_SCANCODE_A)) {
-		
-		PlayAnim(RUNNING);
+	else if (inputManager->KeyDown(SDL_SCANCODE_A))
 		velocity.x = -200.0f * timer->DeltaTime();
-	}
-	else {
-
-		PlayAnim(IDLE);
+	else
 		velocity.x = 0.0f;
+
+	if (grounded) {
+		if (abs(velocity.x) > 0.0f) {
+
+			PlayAnim(RUNNING);
+			idleAnim->Reset();
+		}
+		else {
+
+			PlayAnim(IDLE);
+			runAnim->Reset();
+		}
+			
 	}
 		
 	Translate(velocity.x * VEC2_RIGHT);
@@ -93,38 +126,41 @@ void Player::Update() {
 	if (inputManager->KeyPressed(SDL_SCANCODE_SPACE))
 		Jump();
 
-	if (!grounded) {
-
-		velocity.y += g * timer->DeltaTime();
-
-		//position.y += velocity.y * timer->DeltaTime() + 0.5f * g * timer->DeltaTime() * timer->DeltaTime();
-
-		deltaY = velocity.y * timer->DeltaTime() + 0.5f * g * timer->DeltaTime() * timer->DeltaTime();
-	}
+	velocity.y += g * timer->DeltaTime();
+	deltaY = velocity.y * timer->DeltaTime() + 0.5f * g * timer->DeltaTime() * timer->DeltaTime();
 
 	Translate(deltaY * VEC2_UP);
+	
+	printf("velocity.y = %f\n", velocity.y);
 
-	if (currentAnim == IDLE)
-		idleAnim->Update();
-	else if (currentAnim == RUNNING)
-		runAnim->Update();
+	if (!grounded) {
+
+		if (velocity.y < 0.0f)
+			PlayAnim(JUMP);
+		if (velocity.y > 0.0f)
+			PlayAnim(LAND);
+	}
+
+	if (grounded)
+		landAnim->Reset();
+		
+	box->Update();
 }
 
 void Player::LateUpdate() {
 
-	Sprite* col = collision->AABB(GetRect());
+	Sprite* col = collision->AABB(box->GetBox());
 
 	if (col != nullptr) {
 
-		if (GetRect().y < col->GetRect().y || GetRect().y > col->GetRect().y) {
+		if (box->GetBox().y < col->GetRect().y || box->GetBox().y > col->GetRect().y) {
 
 			Position(Vector2(GetPosition().x, prevPos.y));
-			if (currentAnim == IDLE)
-				idleAnim->Update();
-			else if (currentAnim == RUNNING)
-				runAnim->Update();
-
+			box->Update();
 			velocity.y = 0.0f;
+
+			if (box->GetBox().y < col->GetRect().y)
+				grounded = true;
 		}
 	}
 }
@@ -133,12 +169,10 @@ void Player::Render() {
 
 	if (currentAnim == IDLE)
 		idleAnim->Render();
-	else if (currentAnim == RUNNING)
+	if (currentAnim == RUNNING)
 		runAnim->Render();
-}
-
-SDL_Rect Player::GetRect() {
-	if (currentAnim == IDLE)
-		return idleAnim->GetRect();
-	return runAnim->GetRect();
+	if (currentAnim == JUMP)
+		jumpAnim->Render();
+	if (currentAnim == LAND)
+		landAnim->Render();
 }

@@ -11,6 +11,7 @@ public:
 	void WrapMode(WRAP_MODE mode);
 
 	void Play();
+	void Reset();
 private:
 	Timer* timer;
 	int startX, startY;
