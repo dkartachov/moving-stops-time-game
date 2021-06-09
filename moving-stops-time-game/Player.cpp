@@ -6,6 +6,7 @@ Player::Player(Collision* coll) {
 
 	collision = coll;
 
+	flipped = false;
 	moving = false;
 	grounded = false;
 
@@ -95,10 +96,26 @@ void Player::Update() {
 
 	prevPos = GetPosition();
 
-	if (velocity.x > 0.0f || velocity.x < 0.0f)
+	if (velocity.x > 0.0f) {
+
 		moving = true;
+		runAnim->FlipY(SDL_FLIP_NONE);
+		idleAnim->FlipY(SDL_FLIP_NONE);
+		jumpAnim->FlipY(SDL_FLIP_NONE);
+		landAnim->FlipY(SDL_FLIP_NONE);
+	}
+	else if (velocity.x < 0.0f) {
+		 
+		moving = true;
+		runAnim->FlipY(SDL_FLIP_HORIZONTAL);
+		idleAnim->FlipY(SDL_FLIP_HORIZONTAL);
+		jumpAnim->FlipY(SDL_FLIP_HORIZONTAL);
+		landAnim->FlipY(SDL_FLIP_HORIZONTAL);
+	}
 	else
 		moving = false;
+
+	printf("Player pos: (%f, %f)\n", GetPosition(world).x, GetPosition(world).y);
 
 	if (inputManager->KeyDown(SDL_SCANCODE_D))
 		velocity.x = 200.0f * timer->DeltaTime();
@@ -108,6 +125,7 @@ void Player::Update() {
 		velocity.x = 0.0f;
 
 	if (grounded) {
+
 		if (abs(velocity.x) > 0.0f) {
 
 			PlayAnim(RUNNING);
@@ -131,8 +149,6 @@ void Player::Update() {
 
 	Translate(deltaY * VEC2_UP);
 	
-	printf("velocity.y = %f\n", velocity.y);
-
 	if (!grounded) {
 
 		if (velocity.y < 0.0f)

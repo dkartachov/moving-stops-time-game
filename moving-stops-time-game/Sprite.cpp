@@ -11,6 +11,8 @@ Sprite::Sprite(const char* filename) {
 
 	renderRect.w = width;
 	renderRect.h = height;
+
+	flipY = SDL_FLIP_NONE;
 }
 
 Sprite::Sprite(const char* filename, int x, int y, int w, int h) {
@@ -32,6 +34,7 @@ Sprite::Sprite(const char* filename, int x, int y, int w, int h) {
 }
 
 Sprite::Sprite(std::string text, std::string fontPath, int size, SDL_Color color) {
+
 	graphics = Graphics::Instance();
 	texture = AssetManager::Instance()->GetText(text, fontPath, size, color);
 
@@ -47,6 +50,11 @@ SDL_Rect Sprite::GetRect() {
 	return renderRect;
 }
 
+void Sprite::FlipY(SDL_RendererFlip flipY) {
+
+	this->flipY = flipY;
+}
+
 void Sprite::Render() {
 
 	Vector2 pos = GetPosition(world);
@@ -56,6 +64,6 @@ void Sprite::Render() {
 	renderRect.y = (int)(pos.y - height * scale.y * 0.5f);
 	renderRect.w = (int)(width * scale.x);
 	renderRect.h = (int)(height * scale.y);
-
-	graphics->DrawTexture(texture, clipped ? &clipRect : NULL, &renderRect, GetRotation(world));
+	
+	graphics->DrawTexture(texture, clipped ? &clipRect : NULL, &renderRect, GetRotation(world), flipY);
 }

@@ -39,6 +39,7 @@ private:
 	Vector2 velocity;
 
 	bool moving;
+	bool flipped;
 	bool grounded;
 	float deltaY;
 	const float g = 300;

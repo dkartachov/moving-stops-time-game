@@ -9,8 +9,10 @@ public:
 	Sprite(std::string text, std::string fontPath, int size, SDL_Color color = {0, 0, 0});
 
 	SDL_Rect GetRect();
+	void FlipY(SDL_RendererFlip flipY);
 	virtual void Render();
 protected:
+	SDL_RendererFlip flipY;
 	SDL_Texture* texture;
 	Graphics* graphics;
 	int width, height;
