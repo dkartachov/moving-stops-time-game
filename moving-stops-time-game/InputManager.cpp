@@ -22,7 +22,9 @@ InputManager::InputManager() {
 
 InputManager::~InputManager() {
 	delete[] prevKeyboardState;
-	prevKeyboardState = NULL;
+	prevKeyboardState = nullptr;
+	delete[] keyboardState;
+	keyboardState = nullptr;
 }
 
 bool InputManager::KeyDown(SDL_Scancode scanCode) {

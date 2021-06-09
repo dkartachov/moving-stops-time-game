@@ -27,7 +27,24 @@ Game::Game() {
 	sceneOne = new SceneOne();
 }
 
+Game::~Game() {
+
+	delete timer;
+	timer = nullptr;
+	delete graphics;
+	graphics = nullptr;
+	delete assetManager;
+	assetManager = nullptr;
+	delete inputManager;
+	inputManager = nullptr;
+	delete audioManager;
+	audioManager = nullptr;
+	delete sceneOne;
+	sceneOne = nullptr;
+}
+
 void Game::EarlyUpdate() {
+
 	timer->Reset();
 	inputManager->Update();
 }
@@ -35,8 +52,17 @@ void Game::EarlyUpdate() {
 void Game::Update() {
 
 	////GAME ENTITY UPDATES HERE////
+
+	if (InputManager::Instance()->KeyPressed(SDL_SCANCODE_DELETE)) {
+		delete sceneOne;
+		sceneOne = nullptr;
+	}
+	if (InputManager::Instance()->KeyPressed(SDL_SCANCODE_RETURN)) {
+		sceneOne = new SceneOne();
+	}
 	
-	sceneOne->Update();
+	if (sceneOne != nullptr)
+		sceneOne->Update();
 
 	///////////////////////////////
 }
@@ -45,7 +71,8 @@ void Game::LateUpdate() {
 
 	////COLLISION DETECTION HERE////
 
-	sceneOne->LateUpdate();
+	if (sceneOne != nullptr)
+		sceneOne->LateUpdate();
 
 	///////////////////////////////
 
@@ -58,7 +85,8 @@ void Game::Render() {
 
 	////RENDER ENTITIES HERE////
 
-	sceneOne->Render();
+	if (sceneOne != nullptr)
+		sceneOne->Render();
 		
 	///////////////////////////
 

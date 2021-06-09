@@ -44,8 +44,7 @@ Player::Player(Collision* coll) {
 
 Player::~Player() {
 
-	delete inputManager;
-	inputManager = NULL;
+	inputManager = nullptr;
 }
 
 void Player::Grounded(bool state) {

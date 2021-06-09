@@ -10,6 +10,8 @@ public:
 	static void Release();
 
 	Game();
+	~Game();
+
 	void EarlyUpdate();
 	void Update();
 	void LateUpdate();
