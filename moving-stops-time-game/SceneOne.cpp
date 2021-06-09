@@ -41,7 +41,16 @@ SceneOne::~SceneOne() {
 
 void SceneOne::Update() {
 
-	player->Update();
+	if (InputManager::Instance()->KeyPressed(SDL_SCANCODE_ESCAPE)) {
+		if (!player->IsActive())
+			player->Active(true);
+		else
+			player->Active(false);
+	}
+
+	if (player->IsActive())
+		player->Update();
+
 	ground->Update();
 	ground1->Update();
 	

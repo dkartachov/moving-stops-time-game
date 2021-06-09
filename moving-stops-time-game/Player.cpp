@@ -2,6 +2,8 @@
 
 Player::Player(Collision* coll) {
 
+	Active(false);
+
 	Position(Vector2(Graphics::SCREEN_WIDTH / 2, Graphics::SCREEN_HEIGHT / 2));
 
 	collision = coll;
@@ -96,26 +98,27 @@ void Player::Update() {
 
 	prevPos = GetPosition();
 
+	printf("%f\n", velocity.Magnitude());
+
+	if (velocity.Magnitude() > 0.1f)
+		moving = true;
+	else
+		moving = false;
+
 	if (velocity.x > 0.0f) {
 
-		moving = true;
 		runAnim->FlipY(SDL_FLIP_NONE);
 		idleAnim->FlipY(SDL_FLIP_NONE);
 		jumpAnim->FlipY(SDL_FLIP_NONE);
 		landAnim->FlipY(SDL_FLIP_NONE);
 	}
 	else if (velocity.x < 0.0f) {
-		 
-		moving = true;
+
 		runAnim->FlipY(SDL_FLIP_HORIZONTAL);
 		idleAnim->FlipY(SDL_FLIP_HORIZONTAL);
 		jumpAnim->FlipY(SDL_FLIP_HORIZONTAL);
 		landAnim->FlipY(SDL_FLIP_HORIZONTAL);
 	}
-	else
-		moving = false;
-
-	printf("Player pos: (%f, %f)\n", GetPosition(world).x, GetPosition(world).y);
 
 	if (inputManager->KeyDown(SDL_SCANCODE_D))
 		velocity.x = 200.0f * timer->DeltaTime();
@@ -136,7 +139,6 @@ void Player::Update() {
 			PlayAnim(IDLE);
 			runAnim->Reset();
 		}
-			
 	}
 		
 	Translate(velocity.x * VEC2_RIGHT);
@@ -161,6 +163,8 @@ void Player::Update() {
 		landAnim->Reset();
 		
 	box->Update();
+
+	//printf("Player pos: (%f, %f)\n", GetPosition().x, GetPosition().y);
 }
 
 void Player::LateUpdate() {
@@ -169,7 +173,7 @@ void Player::LateUpdate() {
 
 	if (col != nullptr) {
 
-		if (box->GetBox().y < col->GetRect().y || box->GetBox().y > col->GetRect().y) {
+		if (box->GetBox().y < col->GetRect().y + col->GetRect().h || box->GetBox().y + box->GetBox().h > col->GetRect().y) {
 
 			Position(Vector2(GetPosition().x, prevPos.y));
 			box->Update();
