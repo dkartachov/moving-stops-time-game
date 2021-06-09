@@ -7,6 +7,10 @@ Collision::Collision() {
 void Collision::AddCollider(Sprite* collider) {
 
 	colliders.push_back(collider);
+	
+	for (auto coll : colliders) {
+		collMap[coll] = false;
+	}
 }
 
 bool Collision::AABB(SDL_Rect A, SDL_Rect B) {
@@ -34,4 +38,12 @@ Sprite* Collision::AABB(SDL_Rect A) {
 	}
 
 	return nullptr;
+}
+
+void Collision::GetColliders(SDL_Rect A) {
+
+	for (auto x : collMap) {
+		printf("%d ", x.second);
+	}
+	printf("\n");
 }

@@ -15,6 +15,7 @@ private:
 	Collision* collision;
 	Player* player;
 	Sprite* ground, *ground1;
+	Sprite* wall;
 	Sprite* platform;
 	int platformDirection = 1;
 };

@@ -168,20 +168,31 @@ void Player::Update() {
 
 void Player::LateUpdate() {
 
+	collision->GetColliders(box->GetBox());
+
 	Sprite* col = collision->AABB(box->GetBox());
 
 	if (col != nullptr) {
 
 		if (box->GetBox().y < col->GetRect().y + col->GetRect().h || box->GetBox().y + box->GetBox().h > col->GetRect().y) {
 
+			if (box->GetBox().y + box->GetBox().h > col->GetRect().y)
+				grounded = true;
+
 			Position(Vector2(GetPosition().x, prevPos.y));
 			box->Update();
 			velocity.y = 0.0f;
+		}
 
-			if (box->GetBox().y < col->GetRect().y)
-				grounded = true;
+		if (box->GetBox().x + box->GetBox().w > col->GetRect().x || box->GetBox().x < col->GetRect().x + col->GetRect().w) {
+
+			Position(Vector2(prevPos.x, GetPosition().y));
+			box->Update();
+			velocity.x = 0.0f;
 		}
 	}
+
+	col = nullptr;
 }
 
 void Player::Render() {
