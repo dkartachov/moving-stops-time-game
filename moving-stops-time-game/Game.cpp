@@ -29,16 +29,21 @@ Game::Game() {
 
 Game::~Game() {
 
-	delete timer;
+	Timer::Release();
 	timer = nullptr;
-	delete graphics;
+
+	Graphics::Release();
 	graphics = nullptr;
-	delete assetManager;
+
+	AssetManager::Release();
 	assetManager = nullptr;
-	delete inputManager;
+
+	InputManager::Release();
 	inputManager = nullptr;
-	delete audioManager;
+
+	AudioManager::Release();
 	audioManager = nullptr;
+
 	delete sceneOne;
 	sceneOne = nullptr;
 }

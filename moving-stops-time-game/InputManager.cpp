@@ -23,7 +23,6 @@ InputManager::InputManager() {
 InputManager::~InputManager() {
 	delete[] prevKeyboardState;
 	prevKeyboardState = nullptr;
-	delete[] keyboardState;
 	keyboardState = nullptr;
 }
 
