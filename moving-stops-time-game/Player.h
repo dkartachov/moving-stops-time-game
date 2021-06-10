@@ -11,8 +11,6 @@ public:
 	Player(Collision* coll);
 	~Player();
 
-	//BoxCollider* GetBox();
-
 	void Grounded(bool state);
 	bool IsMoving();
 	void Jump();
@@ -28,7 +26,6 @@ public:
 	void Render();
 
 private:
-	//BoxCollider* box;
 	Collision* collision;
 	InputManager* inputManager;
 	Timer* timer;

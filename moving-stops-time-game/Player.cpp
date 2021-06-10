@@ -47,11 +47,6 @@ Player::~Player() {
 	inputManager = nullptr;
 }
 
-//BoxCollider* Player::GetBox() {
-//
-//	return box;
-//}
-
 void Player::Grounded(bool state) {
 	grounded = state;
 }
