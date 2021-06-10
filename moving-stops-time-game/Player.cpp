@@ -124,6 +124,13 @@ void Player::Update() {
 	else
 		velocity.x = 0.0f;
 
+	if (inputManager->KeyDown(SDL_SCANCODE_W))
+		velocity.y = -200.0f * timer->DeltaTime();
+	else if (inputManager->KeyDown(SDL_SCANCODE_S))
+		velocity.y = 200.0f * timer->DeltaTime();
+	else
+		velocity.y = 0.0f;
+
 	if (grounded) {
 
 		if (abs(velocity.x) > 0.0f) {
@@ -138,16 +145,16 @@ void Player::Update() {
 		}
 	}
 		
-	Translate(velocity.x * VEC2_RIGHT);
+	Translate(velocity);
 		
 	if (inputManager->KeyPressed(SDL_SCANCODE_SPACE))
 		Jump();
 
 
-	velocity.y += g * timer->DeltaTime();
+	/*velocity.y += g * timer->DeltaTime();
 	deltaY = velocity.y * timer->DeltaTime() + 0.5f * g * timer->DeltaTime() * timer->DeltaTime();
 
-	Translate(deltaY * VEC2_UP);
+	Translate(deltaY * VEC2_UP);*/
 	
 
 	if (!grounded) {
@@ -168,7 +175,9 @@ void Player::Update() {
 
 void Player::LateUpdate() {
 
-	std::map <Sprite*, bool> map = collision->GetColliders(box->GetBox());
+
+
+	/*std::map <Sprite*, bool> map = collision->GetColliders(box->GetBox());
 
 	for (auto colls : map) {
 
@@ -197,7 +206,7 @@ void Player::LateUpdate() {
 		}
 
 		box->Update();
-	}
+	}*/
 }
 
 void Player::Render() {
