@@ -36,7 +36,6 @@ private:
 	AnimatedSprite* jumpAnim;
 	AnimatedSprite* landAnim;
 
-	Vector2 prevPos;
 	Vector2 position;
 	Vector2 velocity;
 

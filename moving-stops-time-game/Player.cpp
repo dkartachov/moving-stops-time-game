@@ -12,10 +12,6 @@ Player::Player(Collision* coll) : PhysicsObject(20, 50) {
 	moving = false;
 	grounded = false;
 
-	//box = new BoxCollider(20, 50);
-	//box->Parent(this);
-	//box->Position(VEC2_ZERO);
-
 	inputManager = InputManager::Instance();
 	timer = Timer::Instance();
 
