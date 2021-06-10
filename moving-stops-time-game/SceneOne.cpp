@@ -67,7 +67,7 @@ void SceneOne::Update() {
 		if (platform->GetPosition().x <= 300 || platform->GetPosition().x >= 500.0f)
 			platformDirection = -platformDirection;
 
-		platform->Translate(platformDirection * 100 * Timer::Instance()->DeltaTime() * VEC2_RIGHT);
+		platform->Velocity(platformDirection * 100 * VEC2_RIGHT);
 	}
 
 	platform->Update();

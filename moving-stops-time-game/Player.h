@@ -4,14 +4,14 @@
 #include "Collision.h"
 #include "PhysicsObject.h"
 
-class Player : public GameEntity {
+class Player : public PhysicsObject {
 public:
 	enum ANIM {IDLE = 0, RUNNING, JUMP, LAND};
 public:
 	Player(Collision* coll);
 	~Player();
 
-	BoxCollider* GetBox();
+	//BoxCollider* GetBox();
 
 	void Grounded(bool state);
 	bool IsMoving();
@@ -28,7 +28,7 @@ public:
 	void Render();
 
 private:
-	BoxCollider* box;
+	//BoxCollider* box;
 	Collision* collision;
 	InputManager* inputManager;
 	Timer* timer;
