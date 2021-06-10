@@ -1,6 +1,7 @@
 #pragma once
 #include "Player.h"
 #include "Collision.h"
+#include "PhysicsObject.h"
 
 class SceneOne {
 public:
@@ -14,8 +15,6 @@ public:
 private:
 	Collision* collision;
 	Player* player;
-	Sprite* ground, *ground1;
-	Sprite* wall;
-	Sprite* platform;
+	PhysicsObject* ground1, * ground2, * wall, * platform;
 	int platformDirection = 1;
 };

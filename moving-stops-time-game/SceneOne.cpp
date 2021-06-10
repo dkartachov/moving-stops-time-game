@@ -4,27 +4,23 @@ SceneOne::SceneOne() {
 
 	collision = new Collision();
 
-	ground = new Sprite("ground.png");
-	ground1 = new Sprite("ground.png");
-	wall = new Sprite("ground.png");
-	platform = new Sprite("ground.png");
+	ground1 = new PhysicsObject("ground.png");
+	ground2 = new PhysicsObject("ground.png");
+	wall = new PhysicsObject("ground.png");
+	platform = new PhysicsObject("ground.png");
 
-	ground->Scale(Vector2(2, 1));
 	ground1->Scale(Vector2(2, 1));
+	ground2->Scale(Vector2(2, 1));
 	wall->Scale(Vector2(0.2f, 6));
 	platform->Scale(Vector2(1, 0.5f));
 
-	ground->Position(Vector2(Graphics::SCREEN_WIDTH / 2 - 300, Graphics::SCREEN_HEIGHT / 2));
-	ground->GetBox()->Update();
-	ground1->Position(Vector2(Graphics::SCREEN_WIDTH / 2 + 300, Graphics::SCREEN_HEIGHT / 2));
-	ground1->GetBox()->Update();
+	ground1->Position(Vector2(Graphics::SCREEN_WIDTH / 2 - 300, Graphics::SCREEN_HEIGHT / 2));
+	ground2->Position(Vector2(Graphics::SCREEN_WIDTH / 2 + 300, Graphics::SCREEN_HEIGHT / 2));
 	wall->Position(Vector2(200, 250));
-	wall->GetBox()->Update();
 	platform->Position(Vector2(Graphics::SCREEN_WIDTH / 2, Graphics::SCREEN_HEIGHT / 2 - 50));
-	platform->GetBox()->Update();
 
-	collision->AddCollider(ground->GetBox());
 	collision->AddCollider(ground1->GetBox());
+	collision->AddCollider(ground2->GetBox());
 	collision->AddCollider(wall->GetBox());
 	collision->AddCollider(platform->GetBox());
 
@@ -38,10 +34,10 @@ SceneOne::~SceneOne() {
 
 	delete player;
 	player = nullptr;
-	delete ground;
-	ground = nullptr;
 	delete ground1;
-	ground = nullptr;
+	ground1 = nullptr;
+	delete ground2;
+	ground2 = nullptr;
 	delete wall;
 	wall = nullptr;
 	delete platform;
@@ -63,8 +59,8 @@ void SceneOne::Update() {
 	if (player->IsActive())
 		player->Update();
 
-	ground->Update();
 	ground1->Update();
+	ground2->Update();
 	
 	if (player->IsMoving()) {
 		
@@ -86,8 +82,8 @@ void SceneOne::LateUpdate() {
 void SceneOne::Render() {
 
 	player->Render();
-	ground->Render();
 	ground1->Render();
+	ground2->Render();
 	wall->Render();
 	platform->Render();
 }

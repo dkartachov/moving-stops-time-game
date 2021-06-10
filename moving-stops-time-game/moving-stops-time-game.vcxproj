@@ -155,6 +155,7 @@
     <ClCompile Include="Graphics.cpp" />
     <ClCompile Include="InputManager.cpp" />
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="PhysicsObject.cpp" />
     <ClCompile Include="Player.cpp" />
     <ClCompile Include="SceneOne.cpp" />
     <ClCompile Include="Sprite.cpp" />
@@ -171,6 +172,7 @@
     <ClInclude Include="Graphics.h" />
     <ClInclude Include="InputManager.h" />
     <ClInclude Include="Mathematics.h" />
+    <ClInclude Include="PhysicsObject.h" />
     <ClInclude Include="Player.h" />
     <ClInclude Include="SceneOne.h" />
     <ClInclude Include="Sprite.h" />
