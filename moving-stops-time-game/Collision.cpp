@@ -4,6 +4,12 @@ Collision::Collision() {
 
 }
 
+void Collision::Update() {
+
+	for (auto colls : colliders)
+		colls->Update();
+}
+
 void Collision::AddCollider(BoxCollider* collider) {
 
 	colliders.push_back(collider);

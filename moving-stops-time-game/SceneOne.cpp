@@ -79,10 +79,7 @@ void SceneOne::Update() {
 
 void SceneOne::LateUpdate() {
 
-	ground->GetBox()->Update();
-	ground1->GetBox()->Update();
-	wall->GetBox()->Update();
-	platform->GetBox()->Update();
+	collision->Update();
 	player->LateUpdate();
 }
 

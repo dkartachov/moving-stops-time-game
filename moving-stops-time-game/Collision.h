@@ -9,6 +9,8 @@ public:
 
 	Collision();
 
+	void Update();
+
 	void PlayerCollision();
 
 	void AddCollider(BoxCollider* collider);
