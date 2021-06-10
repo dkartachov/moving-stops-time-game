@@ -19,15 +19,15 @@ SceneOne::SceneOne() {
 	wall->Position(Vector2(200, 250));
 	platform->Position(Vector2(Graphics::SCREEN_WIDTH / 2, Graphics::SCREEN_HEIGHT / 2 - 50));
 
-	collision->AddCollider(ground1->GetBox());
-	collision->AddCollider(ground2->GetBox());
-	collision->AddCollider(wall->GetBox());
-	collision->AddCollider(platform->GetBox());
+	collision->AddCollider(ground1);
+	collision->AddCollider(ground2);
+	collision->AddCollider(wall);
+	collision->AddCollider(platform);
 
 	player = new Player(collision);
 	player->Position(player->GetPosition() + 150 * VEC2_DOWN + 300 * VEC2_RIGHT);
 
-	collision->AddCollider(player->GetBox());
+	//collision->AddCollider(player->GetBox());
 }
 
 SceneOne::~SceneOne() {

@@ -2,7 +2,7 @@
 #include <SDL.h>
 #include <vector>
 #include "Sprite.h"
-#include "BoxCollider.h"
+#include "PhysicsObject.h"
 
 class Collision {
 public:
@@ -13,13 +13,12 @@ public:
 
 	void PlayerCollision();
 
-	void AddCollider(BoxCollider* collider);
+	void AddCollider(PhysicsObject* collider);
 
 	Sprite* AABB(SDL_Rect A);
-	std::vector<BoxCollider*> GetColliders();
+	std::vector<PhysicsObject*> GetColliders();
 	static bool AABB(SDL_Rect A, SDL_Rect B);
 
 private:
-	std::vector<BoxCollider*> colliders;
-	std::map<Sprite*, bool> collMap;
+	std::vector<PhysicsObject*> colliders;
 };

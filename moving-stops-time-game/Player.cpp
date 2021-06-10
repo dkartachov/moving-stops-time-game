@@ -167,24 +167,24 @@ void Player::Update() {
 	box->Update();
 }
 
-bool Player::xCausesCollision(BoxCollider* b) {
+bool Player::xCausesCollision(PhysicsObject* obj) {
 
-	bool hasCollision = collision->AABB(box->GetBox(), b->GetBox());
+	bool hasCollision = collision->AABB(box->GetBox(), obj->GetBox()->GetBox());
 	Position(Vector2(GetPosition().x - velocity.x, GetPosition().y));
 	box->Update();
-	bool hadCollision = collision->AABB(box->GetBox(), b->GetBox());
+	bool hadCollision = collision->AABB(box->GetBox(), obj->GetBox()->GetBox());
 	Position(Vector2(GetPosition().x + velocity.x, GetPosition().y));
 	box->Update();
 
 	return hasCollision && !hadCollision;
 }
 
-bool Player::yCausesCollision(BoxCollider* b) {
+bool Player::yCausesCollision(PhysicsObject* obj) {
 
-	bool hasCollision = collision->AABB(box->GetBox(), b->GetBox());
+	bool hasCollision = collision->AABB(box->GetBox(), obj->GetBox()->GetBox());
 	Position(Vector2(GetPosition().x, GetPosition().y - deltaY));
 	box->Update();
-	bool hadCollision = collision->AABB(box->GetBox(), b->GetBox());
+	bool hadCollision = collision->AABB(box->GetBox(), obj->GetBox()->GetBox());
 	Position(Vector2(GetPosition().x, GetPosition().y + deltaY));
 	box->Update();
 

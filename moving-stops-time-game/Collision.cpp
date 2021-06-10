@@ -10,7 +10,7 @@ void Collision::Update() {
 		colls->Update();
 }
 
-void Collision::AddCollider(BoxCollider* collider) {
+void Collision::AddCollider(PhysicsObject* collider) {
 
 	colliders.push_back(collider);
 }
@@ -26,7 +26,7 @@ bool Collision::AABB(SDL_Rect A, SDL_Rect B) {
 	return false;
 }
 
-std::vector<BoxCollider*> Collision::GetColliders() {
+std::vector<PhysicsObject*> Collision::GetColliders() {
 	
 	return colliders;
 }

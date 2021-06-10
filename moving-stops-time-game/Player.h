@@ -2,7 +2,7 @@
 #include "AnimatedSprite.h"
 #include "InputManager.h"
 #include "Collision.h"
-#include "BoxCollider.h"
+#include "PhysicsObject.h"
 
 class Player : public GameEntity {
 public:
@@ -20,8 +20,8 @@ public:
 	ANIM CurrentAnim();
 	void PlayAnim(ANIM anim);
 
-	bool xCausesCollision(BoxCollider* b);
-	bool yCausesCollision(BoxCollider* b);
+	bool xCausesCollision(PhysicsObject* b);
+	bool yCausesCollision(PhysicsObject* b);
 
 	void Update();
 	void LateUpdate();
