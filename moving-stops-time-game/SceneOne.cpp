@@ -25,7 +25,7 @@ SceneOne::SceneOne() {
 	collision->AddCollider(platform);
 
 	player = new Player(collision);
-	player->Position(player->GetPosition() + 150 * VEC2_DOWN + 300 * VEC2_LEFT);
+	player->Position(player->GetPosition() + 150 * VEC2_DOWN + 300 * VEC2_RIGHT);
 }
 
 SceneOne::~SceneOne() {

@@ -12,7 +12,7 @@ public:
 	void AddCollider(Sprite* collider);
 
 	Sprite* AABB(SDL_Rect A);
-	void GetColliders(SDL_Rect A);
+	std::map<Sprite*, bool> GetColliders(SDL_Rect A);
 	static bool AABB(SDL_Rect A, SDL_Rect B);
 
 private:

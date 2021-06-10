@@ -97,8 +97,6 @@ void Player::Update() {
 
 	prevPos = GetPosition();
 
-	printf("%f\n", velocity.Magnitude());
-
 	if (velocity.Magnitude() > 0.1f)
 		moving = true;
 	else
@@ -145,11 +143,13 @@ void Player::Update() {
 	if (inputManager->KeyPressed(SDL_SCANCODE_SPACE))
 		Jump();
 
+
 	velocity.y += g * timer->DeltaTime();
 	deltaY = velocity.y * timer->DeltaTime() + 0.5f * g * timer->DeltaTime() * timer->DeltaTime();
 
 	Translate(deltaY * VEC2_UP);
 	
+
 	if (!grounded) {
 
 		if (velocity.y < 0.0f)
@@ -158,41 +158,46 @@ void Player::Update() {
 			PlayAnim(LAND);
 	}
 
+	printf("player velocity: (%f, %f)\n", velocity.x, velocity.y);
+
 	if (grounded)
 		landAnim->Reset();
 		
 	box->Update();
-
-	//printf("Player pos: (%f, %f)\n", GetPosition().x, GetPosition().y);
 }
 
 void Player::LateUpdate() {
 
-	collision->GetColliders(box->GetBox());
+	std::map <Sprite*, bool> map = collision->GetColliders(box->GetBox());
 
-	Sprite* col = collision->AABB(box->GetBox());
+	for (auto colls : map) {
 
-	if (col != nullptr) {
+		if (colls.second == true) {
 
-		if (box->GetBox().y < col->GetRect().y + col->GetRect().h || box->GetBox().y + box->GetBox().h > col->GetRect().y) {
+			if (velocity.y > 0.0f) {
 
-			if (box->GetBox().y + box->GetBox().h > col->GetRect().y)
+				printf("hey!\n");
+
+				Position(Vector2(GetPosition().x, prevPos.y));
 				grounded = true;
+				velocity.y = 0.0f;
+			}
+			else if (velocity.y < 0.0f) {
 
-			Position(Vector2(GetPosition().x, prevPos.y));
-			box->Update();
-			velocity.y = 0.0f;
+				Position(Vector2(GetPosition().x, prevPos.y));
+				velocity.y = 0.0f;
+			}
+			
+			else if (velocity.x > 0.0f || velocity.x < 0.0f) {
+
+				Position(Vector2(prevPos.x, GetPosition().y));
+				velocity.x = 0.0f;
+			}
+
 		}
 
-		if (box->GetBox().x + box->GetBox().w > col->GetRect().x || box->GetBox().x < col->GetRect().x + col->GetRect().w) {
-
-			Position(Vector2(prevPos.x, GetPosition().y));
-			box->Update();
-			velocity.x = 0.0f;
-		}
+		box->Update();
 	}
-
-	col = nullptr;
 }
 
 void Player::Render() {

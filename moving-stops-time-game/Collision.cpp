@@ -40,10 +40,20 @@ Sprite* Collision::AABB(SDL_Rect A) {
 	return nullptr;
 }
 
-void Collision::GetColliders(SDL_Rect A) {
+std::map<Sprite*, bool> Collision::GetColliders(SDL_Rect A) {
 
-	for (auto x : collMap) {
-		printf("%d ", x.second);
+	for (auto collider : collMap) {
+		
+		if ((A.x < collider.first->GetRect().x + collider.first->GetRect().w) &&
+			(A.x + A.w > collider.first->GetRect().x) &&
+			(A.y < collider.first->GetRect().y + collider.first->GetRect().h) &&
+			(A.y + A.h > collider.first->GetRect().y)) {
+
+			collMap[collider.first] = true;
+		}
+		else
+			collMap[collider.first] = false;
 	}
-	printf("\n");
+
+	return collMap;
 }
