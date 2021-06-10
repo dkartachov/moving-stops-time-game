@@ -47,6 +47,11 @@ Player::~Player() {
 	inputManager = nullptr;
 }
 
+BoxCollider* Player::GetBox() {
+
+	return box;
+}
+
 void Player::Grounded(bool state) {
 	grounded = state;
 }
@@ -95,8 +100,6 @@ void Player::PlayAnim(ANIM anim) {
 
 void Player::Update() {
 
-	prevPos = GetPosition();
-
 	if (velocity.Magnitude() > 0.1f)
 		moving = true;
 	else
@@ -124,13 +127,6 @@ void Player::Update() {
 	else
 		velocity.x = 0.0f;
 
-	if (inputManager->KeyDown(SDL_SCANCODE_W))
-		velocity.y = -200.0f * timer->DeltaTime();
-	else if (inputManager->KeyDown(SDL_SCANCODE_S))
-		velocity.y = 200.0f * timer->DeltaTime();
-	else
-		velocity.y = 0.0f;
-
 	if (grounded) {
 
 		if (abs(velocity.x) > 0.0f) {
@@ -145,16 +141,16 @@ void Player::Update() {
 		}
 	}
 		
-	Translate(velocity);
+	Translate(velocity.x * VEC2_RIGHT);
 		
 	if (inputManager->KeyPressed(SDL_SCANCODE_SPACE))
 		Jump();
 
 
-	/*velocity.y += g * timer->DeltaTime();
+	velocity.y += g * timer->DeltaTime();
 	deltaY = velocity.y * timer->DeltaTime() + 0.5f * g * timer->DeltaTime() * timer->DeltaTime();
 
-	Translate(deltaY * VEC2_UP);*/
+	Translate(deltaY * VEC2_UP);
 	
 
 	if (!grounded) {
@@ -165,48 +161,54 @@ void Player::Update() {
 			PlayAnim(LAND);
 	}
 
-	printf("player velocity: (%f, %f)\n", velocity.x, velocity.y);
-
 	if (grounded)
 		landAnim->Reset();
 		
 	box->Update();
 }
 
+bool Player::xCausesCollision(BoxCollider* b) {
+
+	bool hasCollision = collision->AABB(box->GetBox(), b->GetBox());
+	Position(Vector2(GetPosition().x - velocity.x, GetPosition().y));
+	box->Update();
+	bool hadCollision = collision->AABB(box->GetBox(), b->GetBox());
+	Position(Vector2(GetPosition().x + velocity.x, GetPosition().y));
+	box->Update();
+
+	return hasCollision && !hadCollision;
+}
+
+bool Player::yCausesCollision(BoxCollider* b) {
+
+	bool hasCollision = collision->AABB(box->GetBox(), b->GetBox());
+	Position(Vector2(GetPosition().x, GetPosition().y - deltaY));
+	box->Update();
+	bool hadCollision = collision->AABB(box->GetBox(), b->GetBox());
+	Position(Vector2(GetPosition().x, GetPosition().y + deltaY));
+	box->Update();
+
+	return hasCollision && !hadCollision;
+}
+
 void Player::LateUpdate() {
 
+	for (auto x : collision->GetColliders()) {
 
+		while (xCausesCollision(x)) {
 
-	/*std::map <Sprite*, bool> map = collision->GetColliders(box->GetBox());
-
-	for (auto colls : map) {
-
-		if (colls.second == true) {
-
-			if (velocity.y > 0.0f) {
-
-				printf("hey!\n");
-
-				Position(Vector2(GetPosition().x, prevPos.y));
-				grounded = true;
-				velocity.y = 0.0f;
-			}
-			else if (velocity.y < 0.0f) {
-
-				Position(Vector2(GetPosition().x, prevPos.y));
-				velocity.y = 0.0f;
-			}
-			
-			else if (velocity.x > 0.0f || velocity.x < 0.0f) {
-
-				Position(Vector2(prevPos.x, GetPosition().y));
-				velocity.x = 0.0f;
-			}
-
+			Position(Vector2(GetPosition().x - velocity.x, GetPosition().y));
+			box->Update();
 		}
 
-		box->Update();
-	}*/
+		while (yCausesCollision(x)) {
+
+			Position(Vector2(GetPosition().x, GetPosition().y - deltaY));
+			grounded = true;
+			velocity.y = 0.0f;
+			box->Update();
+		}
+	}
 }
 
 void Player::Render() {

@@ -1,11 +1,15 @@
 #pragma once
 #include "Mathematics.h"
+#include <string>
 
 class GameEntity {
 public:
 	enum SPACE { local = 0, world = 1 };
 public:
 	GameEntity(float x = 0.0f, float y = 0.0f);
+
+	void Tag(std::string name);
+	std::string GetTag();
 
 	void Position(Vector2 position);
 	Vector2 GetPosition(SPACE space = world);
@@ -28,6 +32,7 @@ public:
 	virtual void Update();
 	virtual void Render();
 private:
+	std::string tag;
 	Vector2 position;
 	float rotation;
 	Vector2 scale;

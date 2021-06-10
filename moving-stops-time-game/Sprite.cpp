@@ -13,6 +13,10 @@ Sprite::Sprite(const char* filename) {
 	renderRect.h = height;
 
 	flipY = SDL_FLIP_NONE;
+
+	box = new BoxCollider(width, height);
+	box->Parent(this);
+	box->Position(VEC2_ZERO);
 }
 
 Sprite::Sprite(const char* filename, int x, int y, int w, int h) {
@@ -31,6 +35,10 @@ Sprite::Sprite(const char* filename, int x, int y, int w, int h) {
 	clipRect.y = y;
 	clipRect.w = width;
 	clipRect.h = height;
+
+	box = new BoxCollider(width, height);
+	box->Parent(this);
+	box->Position(VEC2_ZERO);
 }
 
 Sprite::Sprite(std::string text, std::string fontPath, int size, SDL_Color color) {
@@ -44,10 +52,14 @@ Sprite::Sprite(std::string text, std::string fontPath, int size, SDL_Color color
 
 	renderRect.w = width;
 	renderRect.h = height;
+
+	box = new BoxCollider(width, height);
+	box->Parent(this);
+	box->Position(VEC2_ZERO);
 }
 
-SDL_Rect Sprite::GetRect() {
-	return renderRect;
+BoxCollider* Sprite::GetBox() {
+	return box;
 }
 
 void Sprite::FlipY(SDL_RendererFlip flipY) {

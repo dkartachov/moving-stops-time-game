@@ -11,12 +11,17 @@ public:
 	Player(Collision* coll);
 	~Player();
 
+	BoxCollider* GetBox();
+
 	void Grounded(bool state);
 	bool IsMoving();
 	void Jump();
 
 	ANIM CurrentAnim();
 	void PlayAnim(ANIM anim);
+
+	bool xCausesCollision(BoxCollider* b);
+	bool yCausesCollision(BoxCollider* b);
 
 	void Update();
 	void LateUpdate();

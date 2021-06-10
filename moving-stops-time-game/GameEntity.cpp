@@ -1,6 +1,9 @@
 #include "GameEntity.h"
 
 GameEntity::GameEntity(float x, float y) {
+
+	tag = "GameEntity";
+
 	position.x = x;
 	position.y = y;
 
@@ -12,7 +15,18 @@ GameEntity::GameEntity(float x, float y) {
 	scale = VEC2_ONE;
 }
 
+void GameEntity::Tag(std::string name) {
+	
+	tag = name;
+}
+
+std::string GameEntity::GetTag() {
+
+	return tag;
+}
+
 void GameEntity::Position(Vector2 pos) {
+	
 	position = pos;
 }
 

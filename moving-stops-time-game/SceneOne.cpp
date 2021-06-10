@@ -15,17 +15,23 @@ SceneOne::SceneOne() {
 	platform->Scale(Vector2(1, 0.5f));
 
 	ground->Position(Vector2(Graphics::SCREEN_WIDTH / 2 - 300, Graphics::SCREEN_HEIGHT / 2));
+	ground->GetBox()->Update();
 	ground1->Position(Vector2(Graphics::SCREEN_WIDTH / 2 + 300, Graphics::SCREEN_HEIGHT / 2));
+	ground1->GetBox()->Update();
 	wall->Position(Vector2(200, 250));
+	wall->GetBox()->Update();
 	platform->Position(Vector2(Graphics::SCREEN_WIDTH / 2, Graphics::SCREEN_HEIGHT / 2 - 50));
+	platform->GetBox()->Update();
 
-	collision->AddCollider(ground);
-	collision->AddCollider(ground1);
-	collision->AddCollider(wall);
-	collision->AddCollider(platform);
+	collision->AddCollider(ground->GetBox());
+	collision->AddCollider(ground1->GetBox());
+	collision->AddCollider(wall->GetBox());
+	collision->AddCollider(platform->GetBox());
 
 	player = new Player(collision);
 	player->Position(player->GetPosition() + 150 * VEC2_DOWN + 300 * VEC2_RIGHT);
+
+	collision->AddCollider(player->GetBox());
 }
 
 SceneOne::~SceneOne() {
@@ -73,6 +79,10 @@ void SceneOne::Update() {
 
 void SceneOne::LateUpdate() {
 
+	ground->GetBox()->Update();
+	ground1->GetBox()->Update();
+	wall->GetBox()->Update();
+	platform->GetBox()->Update();
 	player->LateUpdate();
 }
 
