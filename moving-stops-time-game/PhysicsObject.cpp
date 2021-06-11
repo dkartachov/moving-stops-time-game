@@ -46,15 +46,8 @@ bool PhysicsObject::IsDynamic() {
 
 void PhysicsObject::Update() {
 
-	if (dynamic) {
-
+	if (dynamic)
 		velocity.y += 300 * Timer::Instance()->DeltaTime();
-		//float vy = velocity.y;
-		//vy += 300 * Timer::Instance()->DeltaTime();
-		//float deltaY = vy * Timer::Instance()->DeltaTime() + 0.5f * 300 * Timer::Instance()->DeltaTime() * Timer::Instance()->DeltaTime();
-		//Translate(Timer::Instance()->DeltaTime() * velocity);//+ deltaY * VEC2_UP);
-		//velocity.y = vy;
-	}
 
 	Translate(Timer::Instance()->DeltaTime() * velocity);
 
@@ -80,7 +73,6 @@ void PhysicsObject::Position(Vector2 p) {
 void PhysicsObject::Velocity(Vector2 v) {
 
 	velocity = v;
-	box->Update();
 }
 
 Vector2 PhysicsObject::GetVelocity() {
