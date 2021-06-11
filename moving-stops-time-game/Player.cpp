@@ -94,19 +94,19 @@ void Player::PlayAnim(ANIM anim) {
 
 void Player::Update() {
 
-	if (velocity.Magnitude() > 0.1f)
+	if (GetVelocity().Magnitude() > 0.1f)
 		moving = true;
 	else
 		moving = false;
 
-	if (velocity.x > 0.0f) {
+	if (GetVelocity().x > 0.0f) {
 
 		runAnim->FlipY(SDL_FLIP_NONE);
 		idleAnim->FlipY(SDL_FLIP_NONE);
 		jumpAnim->FlipY(SDL_FLIP_NONE);
 		landAnim->FlipY(SDL_FLIP_NONE);
 	}
-	else if (velocity.x < 0.0f) {
+	else if (GetVelocity().x < 0.0f) {
 
 		runAnim->FlipY(SDL_FLIP_HORIZONTAL);
 		idleAnim->FlipY(SDL_FLIP_HORIZONTAL);
@@ -115,15 +115,15 @@ void Player::Update() {
 	}
 
 	if (inputManager->KeyDown(SDL_SCANCODE_D))
-		velocity.x = 200.0f; //* timer->DeltaTime();
+		Velocity(Vector2(200.0f, GetVelocity().y));
 	else if (inputManager->KeyDown(SDL_SCANCODE_A))
-		velocity.x = -200.0f; //* timer->DeltaTime();
+		Velocity(Vector2(-200.0f, GetVelocity().y));
 	else
-		velocity.x = 0.0f;
+		Velocity(Vector2(0.0f, GetVelocity().y));
 
 	if (grounded) {
 
-		if (abs(velocity.x) > 0.0f) {
+		if (abs(GetVelocity().x) > 0.0f) {
 
 			PlayAnim(RUNNING);
 			idleAnim->Reset();
@@ -134,19 +134,14 @@ void Player::Update() {
 			runAnim->Reset();
 		}
 	}
-		
-	Velocity(velocity.x * VEC2_RIGHT);
-	//Translate(velocity.x * VEC2_RIGHT);
-		
+				
 	if (inputManager->KeyPressed(SDL_SCANCODE_SPACE))
 		Jump();
-
 
 	velocity.y += g * timer->DeltaTime();
 	deltaY = velocity.y * timer->DeltaTime() + 0.5f * g * timer->DeltaTime() * timer->DeltaTime();
 
 	Translate(deltaY * VEC2_UP);
-	
 
 	if (!grounded) {
 
