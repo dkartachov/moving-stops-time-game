@@ -68,14 +68,13 @@ void SceneOne::Update() {
 			platformDirection = -platformDirection;
 
 		platform->Velocity(platformDirection * 100 * VEC2_RIGHT);
+		platform->Update();
 	}
-
-	platform->Update();
 }
 
 void SceneOne::LateUpdate() {
 
-	collision->Update();
+	//collision->Update();
 	player->LateUpdate();
 }
 

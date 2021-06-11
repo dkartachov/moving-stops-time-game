@@ -32,6 +32,7 @@ PhysicsObject::~PhysicsObject() {
 
 void PhysicsObject::Update() {
 
+	Translate(Timer::Instance()->DeltaTime() * velocity);
 	box->Update();
 }
 
@@ -54,7 +55,6 @@ void PhysicsObject::Position(Vector2 p) {
 void PhysicsObject::Velocity(Vector2 v) {
 
 	velocity = v;
-	Translate(Timer::Instance()->DeltaTime() * velocity);
 	box->Update();
 }
 
