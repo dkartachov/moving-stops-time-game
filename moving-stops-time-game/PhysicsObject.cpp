@@ -1,6 +1,8 @@
 #include "PhysicsObject.h"
 
-PhysicsObject::PhysicsObject(const char* fileName) {
+PhysicsObject::PhysicsObject(const char* fileName, bool dynamic) {
+
+	this->dynamic = dynamic;
 
 	sprite = new Sprite(fileName);
 	sprite->Parent(this);
@@ -11,7 +13,9 @@ PhysicsObject::PhysicsObject(const char* fileName) {
 	box->Position(VEC2_ZERO);
 }
 
-PhysicsObject::PhysicsObject(int w, int h) {
+PhysicsObject::PhysicsObject(int w, int h, bool dynamic) {
+
+	this->dynamic = dynamic;
 
 	sprite = nullptr;
 
@@ -30,9 +34,30 @@ PhysicsObject::~PhysicsObject() {
 	box = nullptr;
 }
 
+void PhysicsObject::Dynamic(bool state) {
+	
+	dynamic = state;
+}
+
+bool PhysicsObject::IsDynamic() {
+
+	return dynamic;
+}
+
 void PhysicsObject::Update() {
 
+	if (dynamic) {
+
+		velocity.y += 300 * Timer::Instance()->DeltaTime();
+		//float vy = velocity.y;
+		//vy += 300 * Timer::Instance()->DeltaTime();
+		//float deltaY = vy * Timer::Instance()->DeltaTime() + 0.5f * 300 * Timer::Instance()->DeltaTime() * Timer::Instance()->DeltaTime();
+		//Translate(Timer::Instance()->DeltaTime() * velocity);//+ deltaY * VEC2_UP);
+		//velocity.y = vy;
+	}
+
 	Translate(Timer::Instance()->DeltaTime() * velocity);
+
 	box->Update();
 }
 

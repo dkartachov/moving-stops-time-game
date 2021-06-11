@@ -3,6 +3,7 @@
 Player::Player(Collision* coll) : PhysicsObject(20, 50) {
 
 	Active(false);
+	Dynamic(true);
 
 	Position(Vector2(Graphics::SCREEN_WIDTH / 2, Graphics::SCREEN_HEIGHT / 2));
 
@@ -56,8 +57,7 @@ bool Player::IsMoving() {
 void Player::Jump() {
 
 	grounded = false;
-	//Velocity(200.0f * VEC2_UP);
-	velocity.y = -200.0f;
+	Velocity(Vector2(GetVelocity().x, -200.0f));
 	jumpAnim->Reset();
 }
 
@@ -138,16 +138,13 @@ void Player::Update() {
 	if (inputManager->KeyPressed(SDL_SCANCODE_SPACE))
 		Jump();
 
-	velocity.y += g * timer->DeltaTime();
-	deltaY = velocity.y * timer->DeltaTime() + 0.5f * g * timer->DeltaTime() * timer->DeltaTime();
-
-	Translate(deltaY * VEC2_UP);
+	printf("Velocity: (%f, %f)\n", GetVelocity().x, GetVelocity().y);
 
 	if (!grounded) {
 
-		if (velocity.y < 0.0f)
+		if (GetVelocity().y < 0.0f)
 			PlayAnim(JUMP);
-		if (velocity.y > 0.0f)
+		if (GetVelocity().y > 0.0f)
 			PlayAnim(LAND);
 	}
 
@@ -161,10 +158,8 @@ bool Player::xCausesCollision(PhysicsObject* obj) {
 
 	bool hasCollision = collision->AABB(this->GetBox()->GetBox(), obj->GetBox()->GetBox());
 	Position(Vector2(GetPosition().x - GetVelocity().x * timer->DeltaTime(), GetPosition().y));
-	//PhysicsObject::Update();
 	bool hadCollision = collision->AABB(this->GetBox()->GetBox(), obj->GetBox()->GetBox());
 	Position(Vector2(GetPosition().x + GetVelocity().x * timer->DeltaTime(), GetPosition().y));
-	//PhysicsObject::Update();
 
 	return hasCollision && !hadCollision;
 }
@@ -172,11 +167,9 @@ bool Player::xCausesCollision(PhysicsObject* obj) {
 bool Player::yCausesCollision(PhysicsObject* obj) {
 
 	bool hasCollision = collision->AABB(this->GetBox()->GetBox(), obj->GetBox()->GetBox());
-	Position(Vector2(GetPosition().x, GetPosition().y - deltaY));
-	//PhysicsObject::Update();
+	Position(Vector2(GetPosition().x, GetPosition().y - GetVelocity().y * timer->DeltaTime()));
 	bool hadCollision = collision->AABB(this->GetBox()->GetBox(), obj->GetBox()->GetBox());
-	Position(Vector2(GetPosition().x, GetPosition().y + deltaY));
-	//PhysicsObject::Update();
+	Position(Vector2(GetPosition().x, GetPosition().y + GetVelocity().y * timer->DeltaTime()));
 
 	return hasCollision && !hadCollision;
 }
@@ -188,15 +181,13 @@ void Player::LateUpdate() {
 		while (xCausesCollision(x)) {
 
 			Position(Vector2(GetPosition().x - GetVelocity().x * timer->DeltaTime(), GetPosition().y));
-			//PhysicsObject::Update();
 		}
 
 		while (yCausesCollision(x)) {
 
-			Position(Vector2(GetPosition().x, GetPosition().y - deltaY));
+			Position(Vector2(GetPosition().x, GetPosition().y - GetVelocity().y * timer->DeltaTime()));
 			grounded = true;
-			velocity.y = 0.0f;
-			//PhysicsObject::Update();
+			Velocity(Vector2(GetVelocity().x, 0.0f));
 		}
 	}
 }

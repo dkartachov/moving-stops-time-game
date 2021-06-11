@@ -4,10 +4,10 @@ SceneOne::SceneOne() {
 
 	collision = new Collision();
 
-	ground1 = new PhysicsObject("ground.png");
-	ground2 = new PhysicsObject("ground.png");
-	wall = new PhysicsObject("ground.png");
-	platform = new PhysicsObject("ground.png");
+	ground1 = new PhysicsObject("ground.png", false);
+	ground2 = new PhysicsObject("ground.png", false);
+	wall = new PhysicsObject("ground.png", false);
+	platform = new PhysicsObject("ground.png", false);
 
 	ground1->Scale(Vector2(2, 1));
 	ground2->Scale(Vector2(2, 1));
