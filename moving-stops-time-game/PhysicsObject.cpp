@@ -45,10 +45,17 @@ BoxCollider* PhysicsObject::GetBox() {
 	return box;
 }
 
+void PhysicsObject::Position(Vector2 p) {
+
+	GameEntity::Position(p);
+	box->Update();
+}
+
 void PhysicsObject::Velocity(Vector2 v) {
 
 	velocity = v;
 	Translate(Timer::Instance()->DeltaTime() * velocity);
+	box->Update();
 }
 
 Vector2 PhysicsObject::GetVelocity() {

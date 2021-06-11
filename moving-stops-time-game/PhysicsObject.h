@@ -17,6 +17,8 @@ public:
 
 	BoxCollider* GetBox();
 
+	void Position(Vector2 p);
+
 	void Velocity(Vector2 v);
 	Vector2 GetVelocity();
 
