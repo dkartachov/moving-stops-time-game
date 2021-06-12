@@ -89,10 +89,7 @@ void Player::PlayAnim(ANIM anim) {
 
 void Player::Update() {
 
-	if (GetVelocity().Magnitude() != 0.0f)
-		moving = true;
-	else
-		moving = false;
+	Vector2 prev = GetPosition();
 
 	if (GetVelocity().x > 0.0f) {
 
@@ -145,9 +142,22 @@ void Player::Update() {
 		landAnim->Reset();
 
 	//printf("X Position: %f , X Velocity: %f\n", GetPosition().x, GetVelocity().x);
-	printf("Y Position: %f , Y Velocity: %f\n", GetPosition().y, GetVelocity().y);
+	//printf("Y Position: %f , Y Velocity: %f\n", GetPosition().y, GetVelocity().y);
 
 	PhysicsObject::Update();
+
+	Vector2 pos = GetPosition();
+	float delx = pos.x - prev.x;
+	float dely = pos.y - prev.y;
+
+	if (abs(delx) > 1 || !IsGrounded())
+		moving = true;
+	else
+		moving = false;
+
+
+	printf("deltaX: %f , deltaY: %f\n", delx, dely);
+
 }
 
 void Player::LateUpdate() {
