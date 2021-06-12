@@ -14,9 +14,6 @@ public:
 	void Dynamic(bool state);
 	bool IsDynamic();
 
-	void Grounded(bool state);
-	bool IsGrounded();
-
 	void Update();
 	void Render();
 
@@ -28,7 +25,6 @@ public:
 	Vector2 GetVelocity();
 
 private:
-	bool grounded;
 	bool dynamic;
 	Sprite* sprite;
 	BoxCollider* box;

@@ -31,6 +31,7 @@ private:
 	AssetManager* assetManager;
 	InputManager* inputManager;
 	AudioManager* audioManager;
+	Collision* collision;
 
 	SceneOne* sceneOne;
 };

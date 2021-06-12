@@ -8,7 +8,7 @@ class Player : public PhysicsObject {
 public:
 	enum ANIM {IDLE = 0, RUNNING, JUMP, LAND};
 public:
-	Player(Collision* coll);
+	Player();
 	~Player();
 
 	bool IsMoving();
@@ -17,15 +17,11 @@ public:
 	ANIM CurrentAnim();
 	void PlayAnim(ANIM anim);
 
-	bool xCausesCollision(PhysicsObject* b);
-	bool yCausesCollision(PhysicsObject* b);
-
 	void Update();
 	void LateUpdate();
 	void Render();
 
 private:
-	Collision* collision;
 	InputManager* inputManager;
 	Timer* timer;
 
@@ -34,13 +30,9 @@ private:
 	AnimatedSprite* runAnim;
 	AnimatedSprite* jumpAnim;
 	AnimatedSprite* landAnim;
-
-	Vector2 position;
-	Vector2 velocity;
+	BoxCollider* groundedBox;
 
 	bool grounded;
 	bool moving;
 	bool flipped;
-	float deltaY;
-	const float g = 300;
 };

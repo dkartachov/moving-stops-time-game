@@ -4,6 +4,9 @@ BoxCollider::BoxCollider(int w, int h) {
 
 	width = w;
 	height = h;
+
+	box.w = width;
+	box.h = height;
 }
 
 SDL_Rect BoxCollider::GetBox() {

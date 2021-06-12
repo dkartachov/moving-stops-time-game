@@ -23,6 +23,7 @@ Game::Game() {
 	assetManager = AssetManager::Instance();
 	inputManager = InputManager::Instance();
 	audioManager = AudioManager::Instance();
+	collision = Collision::Instance();
 
 	sceneOne = new SceneOne();
 }
@@ -43,6 +44,9 @@ Game::~Game() {
 
 	AudioManager::Release();
 	audioManager = nullptr;
+
+	Collision::Release();
+	collision = nullptr;
 
 	delete sceneOne;
 	sceneOne = nullptr;

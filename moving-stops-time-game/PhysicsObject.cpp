@@ -2,7 +2,6 @@
 
 PhysicsObject::PhysicsObject(const char* fileName, bool dynamic) {
 
-	grounded = false;
 	this->dynamic = dynamic;
 
 	sprite = new Sprite(fileName);
@@ -16,7 +15,6 @@ PhysicsObject::PhysicsObject(const char* fileName, bool dynamic) {
 
 PhysicsObject::PhysicsObject(int w, int h, bool dynamic) {
 
-	grounded = false;
 	this->dynamic = dynamic;
 
 	sprite = nullptr;
@@ -34,16 +32,6 @@ PhysicsObject::~PhysicsObject() {
 
 	delete box;
 	box = nullptr;
-}
-
-void PhysicsObject::Grounded(bool state) {
-
-	grounded = state;
-}
-
-bool PhysicsObject::IsGrounded() {
-
-	return grounded;
 }
 
 void PhysicsObject::Dynamic(bool state) {

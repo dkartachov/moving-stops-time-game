@@ -7,7 +7,13 @@
 class Collision {
 public:
 
+	static Collision* Instance();
+	static void Release();
+
 	Collision();
+	~Collision();
+
+	void Clear();
 
 	void Update();
 
@@ -17,10 +23,11 @@ public:
 
 	void AddCollider(PhysicsObject* collider);
 
-	Sprite* AABB(SDL_Rect A);
 	std::vector<PhysicsObject*> GetColliders();
 	static bool AABB(SDL_Rect A, SDL_Rect B);
+	bool AllAABB(BoxCollider A, std::string tag);
 
 private:
+	static Collision* instance;
 	std::vector<PhysicsObject*> colliders;
 };

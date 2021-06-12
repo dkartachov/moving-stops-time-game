@@ -1,21 +1,23 @@
 #include "Player.h"
 
-Player::Player(Collision* coll) : PhysicsObject(20, 50) {
+Player::Player() : PhysicsObject(20, 50) {
 
 	Active(false);
 	Dynamic(true);
 
 	Position(Vector2(Graphics::SCREEN_WIDTH / 2, Graphics::SCREEN_HEIGHT / 2));
 
-	collision = coll;
+	grounded = false;
+	groundedBox = new BoxCollider(18, 2);
+	groundedBox->Parent(this);
+	groundedBox->Position(VEC2_ZERO);
+	groundedBox->Position(Vector2(0.0f, 25));
 
 	flipped = false;
 	moving = false;
 
 	inputManager = InputManager::Instance();
 	timer = Timer::Instance();
-
-	velocity = VEC2_ZERO;
 
 	Velocity(VEC2_ZERO);
 
@@ -52,7 +54,6 @@ bool Player::IsMoving() {
 void Player::Jump() {
 
 	Velocity(Vector2(GetVelocity().x, -200.0f));
-	Grounded(false);
 	jumpAnim->Reset();
 }
 
@@ -91,6 +92,9 @@ void Player::Update() {
 
 	Vector2 prev = GetPosition();
 
+	grounded = Collision::Instance()->AllAABB(*groundedBox, "Ground");
+	printf("Grounded = %d\n", grounded);
+
 	if (GetVelocity().x > 0.0f) {
 
 		runAnim->FlipY(SDL_FLIP_NONE);
@@ -113,7 +117,7 @@ void Player::Update() {
 	else
 		Velocity(Vector2(0.0f, GetVelocity().y));
 
-	if (IsGrounded()) {
+	if (grounded) {
 
 		if (abs(GetVelocity().x) > 0.0f) {
 
@@ -130,7 +134,7 @@ void Player::Update() {
 	if (inputManager->KeyPressed(SDL_SCANCODE_SPACE))
 		Jump();
 
-	if (!IsGrounded()) {
+	if (!grounded) {
 
 		if (GetVelocity().y < 0.0f)
 			PlayAnim(JUMP);
@@ -138,26 +142,23 @@ void Player::Update() {
 			PlayAnim(LAND);
 	}
 
-	if (IsGrounded())
+	if (grounded)
 		landAnim->Reset();
 
 	//printf("X Position: %f , X Velocity: %f\n", GetPosition().x, GetVelocity().x);
 	//printf("Y Position: %f , Y Velocity: %f\n", GetPosition().y, GetVelocity().y);
 
 	PhysicsObject::Update();
+	groundedBox->Update();
 
 	Vector2 pos = GetPosition();
 	float delx = pos.x - prev.x;
 	float dely = pos.y - prev.y;
 
-	if (abs(delx) > 1 || !IsGrounded())
+	if (abs(delx) > 1 || !grounded)
 		moving = true;
 	else
 		moving = false;
-
-
-	printf("deltaX: %f , deltaY: %f\n", delx, dely);
-
 }
 
 void Player::LateUpdate() {

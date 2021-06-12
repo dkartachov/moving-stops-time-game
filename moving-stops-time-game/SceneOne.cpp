@@ -2,7 +2,7 @@
 
 SceneOne::SceneOne() {
 
-	collision = new Collision();
+	collision = Collision::Instance();
 
 	ground1 = new PhysicsObject("ground.png", false);
 	ground2 = new PhysicsObject("ground.png", false);
@@ -19,12 +19,17 @@ SceneOne::SceneOne() {
 	wall->Position(Vector2(200, 250));
 	platform->Position(Vector2(Graphics::SCREEN_WIDTH / 2, Graphics::SCREEN_HEIGHT / 2 - 50));
 
+	ground1->Tag("Ground");
+	ground2->Tag("Ground");
+	wall->Tag("Ground");
+	platform->Tag("Ground");
+
 	collision->AddCollider(ground1);
 	collision->AddCollider(ground2);
 	collision->AddCollider(wall);
 	collision->AddCollider(platform);
 
-	player = new Player(collision);
+	player = new Player();
 	player->Position(player->GetPosition() + 150 * VEC2_DOWN + 300 * VEC2_RIGHT);
 
 	collision->AddCollider(player);
@@ -42,8 +47,8 @@ SceneOne::~SceneOne() {
 	wall = nullptr;
 	delete platform;
 	platform = nullptr;
-	delete collision;
-	collision = nullptr;
+
+	collision->Clear();
 }
 
 void SceneOne::Update() {
@@ -59,14 +64,14 @@ void SceneOne::Update() {
 	ground1->Update();
 	ground2->Update();
 	
-	if (player->IsMoving()) {
+	//if (player->IsMoving()) {
 		
-		if (platform->GetPosition().x <= 300 || platform->GetPosition().x >= 500.0f)
+		if (platform->GetPosition().y <= 300.0f || platform->GetPosition().y >= 500.0f)
 			platformDirection = -platformDirection;
 
-		platform->Velocity(platformDirection * 100 * VEC2_RIGHT);
+		platform->Velocity(platformDirection * 100 * VEC2_DOWN);
 		platform->Update();
-	}
+	//}
 
 	if (player->IsActive())
 		player->Update();
