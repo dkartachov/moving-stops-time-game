@@ -6,7 +6,6 @@
 class PhysicsObject : public GameEntity {
 
 public:
-
 	PhysicsObject(const char* fileName, bool dynamic = true);
 	PhysicsObject(int w, int h, bool dynamic = true);
 
@@ -14,6 +13,9 @@ public:
 
 	void Dynamic(bool state);
 	bool IsDynamic();
+
+	void Grounded(bool state);
+	bool IsGrounded();
 
 	void Update();
 	void Render();
@@ -26,6 +28,7 @@ public:
 	Vector2 GetVelocity();
 
 private:
+	bool grounded;
 	bool dynamic;
 	Sprite* sprite;
 	BoxCollider* box;

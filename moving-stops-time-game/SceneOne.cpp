@@ -27,7 +27,7 @@ SceneOne::SceneOne() {
 	player = new Player(collision);
 	player->Position(player->GetPosition() + 150 * VEC2_DOWN + 300 * VEC2_RIGHT);
 
-	//collision->AddCollider(player->GetBox());
+	collision->AddCollider(player);
 }
 
 SceneOne::~SceneOne() {
@@ -56,9 +56,6 @@ void SceneOne::Update() {
 			player->Active(false);
 	}
 
-	if (player->IsActive())
-		player->Update();
-
 	ground1->Update();
 	ground2->Update();
 	
@@ -70,12 +67,15 @@ void SceneOne::Update() {
 		platform->Velocity(platformDirection * 100 * VEC2_RIGHT);
 		platform->Update();
 	}
+
+	if (player->IsActive())
+		player->Update();
 }
 
 void SceneOne::LateUpdate() {
 
-	//collision->Update();
-	player->LateUpdate();
+	collision->ResolveCollisions();
+	//player->LateUpdate();
 }
 
 void SceneOne::Render() {

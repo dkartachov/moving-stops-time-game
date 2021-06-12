@@ -11,7 +11,9 @@ public:
 
 	void Update();
 
-	void PlayerCollision();
+	bool XCausesCollision(PhysicsObject* A, PhysicsObject* B);
+	bool YCausesCollision(PhysicsObject* A, PhysicsObject* B);
+	void ResolveCollisions();
 
 	void AddCollider(PhysicsObject* collider);
 

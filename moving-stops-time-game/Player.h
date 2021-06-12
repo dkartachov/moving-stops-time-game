@@ -11,7 +11,6 @@ public:
 	Player(Collision* coll);
 	~Player();
 
-	void Grounded(bool state);
 	bool IsMoving();
 	void Jump();
 
@@ -41,7 +40,6 @@ private:
 
 	bool moving;
 	bool flipped;
-	bool grounded;
 	float deltaY;
 	const float g = 300;
 };
