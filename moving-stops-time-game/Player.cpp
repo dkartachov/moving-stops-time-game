@@ -89,7 +89,7 @@ void Player::PlayAnim(ANIM anim) {
 
 void Player::Update() {
 
-	if (GetVelocity().Magnitude() > 0.1f)
+	if (GetVelocity().Magnitude() > 0.0f)
 		moving = true;
 	else
 		moving = false;
@@ -133,8 +133,6 @@ void Player::Update() {
 	if (inputManager->KeyPressed(SDL_SCANCODE_SPACE))
 		Jump();
 
-	printf("Velocity: (%f, %f)\n", GetVelocity().x, GetVelocity().y);
-
 	if (!IsGrounded()) {
 
 		if (GetVelocity().y < 0.0f)
@@ -145,8 +143,6 @@ void Player::Update() {
 
 	if (IsGrounded())
 		landAnim->Reset();
-
-	printf("%d\n", IsGrounded());
 
 	PhysicsObject::Update();
 }

@@ -22,7 +22,7 @@ public:
 	void Quit();
 private:
 	static Game* instance;
-	const int FRAME_RATE = 140;
+	const int FRAME_RATE = 60;
 	bool quit;
 
 	Timer* timer;

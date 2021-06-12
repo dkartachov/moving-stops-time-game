@@ -38,6 +38,7 @@ private:
 	Vector2 position;
 	Vector2 velocity;
 
+	bool grounded;
 	bool moving;
 	bool flipped;
 	float deltaY;
