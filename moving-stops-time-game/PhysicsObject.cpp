@@ -58,7 +58,7 @@ bool PhysicsObject::IsDynamic() {
 
 void PhysicsObject::Update() {
 
-	if (dynamic && !grounded)
+	if (dynamic)
 		velocity.y += 300 * Timer::Instance()->DeltaTime();
 
 	Translate(Timer::Instance()->DeltaTime() * velocity);

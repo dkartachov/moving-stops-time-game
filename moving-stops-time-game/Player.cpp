@@ -144,6 +144,9 @@ void Player::Update() {
 	if (IsGrounded())
 		landAnim->Reset();
 
+	//printf("X Position: %f , X Velocity: %f\n", GetPosition().x, GetVelocity().x);
+	printf("Y Position: %f , Y Velocity: %f\n", GetPosition().y, GetVelocity().y);
+
 	PhysicsObject::Update();
 }
 

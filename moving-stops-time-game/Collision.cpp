@@ -7,8 +7,6 @@ Collision::Collision() {
 
 void Collision::Update() {
 
-	for (auto colls : colliders)
-		colls->Update();
 }
 
 bool Collision::XCausesCollision(PhysicsObject* A, PhysicsObject* B) {
@@ -32,6 +30,8 @@ bool Collision::YCausesCollision(PhysicsObject* A, PhysicsObject* B) {
 	bool hadCollision = AABB(A->GetBox()->GetBox(), B->GetBox()->GetBox());
 	A->Position(Vector2(A->GetPosition().x, A->GetPosition().y + A->GetVelocity().y * delT));
 
+	
+
 	return hasCollision && !hadCollision;
 }
 
@@ -49,11 +49,13 @@ void Collision::ResolveCollisions() {
 				while (XCausesCollision(collider, c)) {
 
 					collider->Position(Vector2(collider->GetPosition().x - collider->GetVelocity().x * Timer::Instance()->DeltaTime(), collider->GetPosition().y));
+					collider->Velocity(Vector2(0.0f, collider->GetVelocity().y));
 				}
 
 				while (YCausesCollision(collider, c)) {
 
 					collider->Position(Vector2(collider->GetPosition().x, collider->GetPosition().y - collider->GetVelocity().y * Timer::Instance()->DeltaTime()));
+					collider->Velocity(Vector2(collider->GetVelocity().x, 0.0f));
 				}
 			}
 		}
