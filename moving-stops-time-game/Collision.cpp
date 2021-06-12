@@ -56,6 +56,7 @@ void Collision::ResolveCollisions() {
 
 					collider->Position(Vector2(collider->GetPosition().x, collider->GetPosition().y - collider->GetVelocity().y * Timer::Instance()->DeltaTime()));
 					collider->Velocity(Vector2(collider->GetVelocity().x, 0.0f));
+					collider->Grounded(true);
 				}
 			}
 		}

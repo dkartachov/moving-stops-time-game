@@ -89,7 +89,7 @@ void Player::PlayAnim(ANIM anim) {
 
 void Player::Update() {
 
-	if (GetVelocity().Magnitude() > 0.0f)
+	if (GetVelocity().Magnitude() != 0.0f)
 		moving = true;
 	else
 		moving = false;
