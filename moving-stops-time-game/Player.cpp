@@ -8,7 +8,7 @@ Player::Player() : PhysicsObject(20, 50) {
 	Position(Vector2(Graphics::SCREEN_WIDTH / 2, Graphics::SCREEN_HEIGHT / 2));
 
 	grounded = false;
-	groundedBox = new BoxCollider(18, 2);
+	groundedBox = new BoxCollider(18, 4);
 	groundedBox->Parent(this);
 	groundedBox->Position(VEC2_ZERO);
 	groundedBox->Position(Vector2(0.0f, 25));
@@ -93,16 +93,16 @@ void Player::Update() {
 	Vector2 prev = GetPosition();
 
 	grounded = Collision::Instance()->AllAABB(*groundedBox, "Ground");
-	printf("Grounded = %d\n", grounded);
+	//printf("Grounded = %d\n", grounded);
 
-	if (GetVelocity().x > 0.0f) {
+	if (inputManager->KeyDown(SDL_SCANCODE_D)) {
 
 		runAnim->FlipY(SDL_FLIP_NONE);
 		idleAnim->FlipY(SDL_FLIP_NONE);
 		jumpAnim->FlipY(SDL_FLIP_NONE);
 		landAnim->FlipY(SDL_FLIP_NONE);
 	}
-	else if (GetVelocity().x < 0.0f) {
+	else if (inputManager->KeyDown(SDL_SCANCODE_A)) {
 
 		runAnim->FlipY(SDL_FLIP_HORIZONTAL);
 		idleAnim->FlipY(SDL_FLIP_HORIZONTAL);
@@ -114,12 +114,13 @@ void Player::Update() {
 		Velocity(Vector2(200.0f, GetVelocity().y));
 	else if (inputManager->KeyDown(SDL_SCANCODE_A))
 		Velocity(Vector2(-200.0f, GetVelocity().y));
-	else
+
+	if (inputManager->KeyReleased(SDL_SCANCODE_D) || inputManager->KeyReleased(SDL_SCANCODE_A))
 		Velocity(Vector2(0.0f, GetVelocity().y));
 
 	if (grounded) {
 
-		if (abs(GetVelocity().x) > 0.0f) {
+		if (inputManager->KeyDown(SDL_SCANCODE_D) || inputManager->KeyDown(SDL_SCANCODE_A)) {
 
 			PlayAnim(RUNNING);
 			idleAnim->Reset();

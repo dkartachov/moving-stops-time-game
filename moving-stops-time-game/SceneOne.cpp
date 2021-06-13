@@ -64,17 +64,17 @@ void SceneOne::Update() {
 	ground1->Update();
 	ground2->Update();
 	
-	if (player->IsMoving()) {
+	//if (player->IsMoving()) {
 		
-		if (platform->GetPosition().y <= 300.0f || platform->GetPosition().y >= 500.0f)
+		if (platform->GetPosition().x <= 300.0f || platform->GetPosition().x >= 500.0f)
 			platformDirection = -platformDirection;
 
-		platform->Velocity(platformDirection * 100 * VEC2_DOWN);
+		platform->Velocity(platformDirection * 100 * VEC2_RIGHT);
 		platform->Update();
-	}
-	else {
+	//}
+	/*else {
 		platform->Velocity(VEC2_ZERO);
-	}
+	}*/
 
 	if (player->IsActive())
 		player->Update();

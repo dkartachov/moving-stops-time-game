@@ -99,7 +99,16 @@ void Collision::ResolveCollisions() {
 						depth = c->GetBox()->GetBox().y + c->GetBox()->GetBox().h - collider->GetBox()->GetBox().y;
 		
 					collider->Position(Vector2(collider->GetPosition().x, collider->GetPosition().y + depth));
-					collider->Velocity(Vector2(collider->GetVelocity().x, 0.0f));
+
+					if (c->GetVelocity().y > 0.0f)
+						collider->Velocity(Vector2(collider->GetVelocity().x, c->GetVelocity().y));
+					else
+						collider->Velocity(Vector2(collider->GetVelocity().x, 0.0f));
+
+					if (abs(c->GetVelocity().x) > 0.0f)
+						collider->Velocity(Vector2(c->GetVelocity().x, collider->GetVelocity().y));
+					else
+						collider->Velocity(Vector2(0.0f, collider->GetVelocity().y));
 				}
 			}
 		}

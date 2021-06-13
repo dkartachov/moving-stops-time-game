@@ -116,7 +116,6 @@ void Game::Run() {
 
 		if (timer->DeltaTime() >= 1.0f / FRAME_RATE) {
 
-			printf("%d\n", collision->GetColliders().size());
 			EarlyUpdate();
 			Update();
 			LateUpdate();
