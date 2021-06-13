@@ -67,6 +67,8 @@ void Game::Update() {
 		sceneOne = nullptr;
 	}
 	if (InputManager::Instance()->KeyPressed(SDL_SCANCODE_RETURN)) {
+		delete sceneOne;
+		sceneOne = nullptr;
 		sceneOne = new SceneOne();
 	}
 	
@@ -114,6 +116,7 @@ void Game::Run() {
 
 		if (timer->DeltaTime() >= 1.0f / FRAME_RATE) {
 
+			printf("%d\n", collision->GetColliders().size());
 			EarlyUpdate();
 			Update();
 			LateUpdate();
