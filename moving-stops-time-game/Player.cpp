@@ -92,7 +92,16 @@ void Player::Update() {
 
 	Vector2 prev = GetPosition();
 
-	grounded = Collision::Instance()->AllAABB(*groundedBox, "Ground");
+	grounded = Collision::Instance()->AllAABB(*groundedBox, { "Ground" , "Platform" });
+	bool onPlatform = false;
+	std::string s;
+	if (Collision::Instance()->GetCurrentCollider() != nullptr)
+		s = Collision::Instance()->GetCurrentCollider()->GetTag();
+
+	if (grounded && s == "Platform") {
+		onPlatform = true;
+	}
+		
 	//printf("Grounded = %d\n", grounded);
 
 	if (inputManager->KeyDown(SDL_SCANCODE_D)) {
@@ -156,7 +165,7 @@ void Player::Update() {
 	float delx = pos.x - prev.x;
 	float dely = pos.y - prev.y;
 
-	if (abs(delx) > 1 || !grounded)
+	if ((inputManager->KeyDown(SDL_SCANCODE_D)|| inputManager->KeyDown(SDL_SCANCODE_A) || !grounded) && !onPlatform)
 		moving = true;
 	else
 		moving = false;

@@ -24,10 +24,13 @@ public:
 	void AddCollider(PhysicsObject* collider);
 
 	std::vector<PhysicsObject*> GetColliders();
+	PhysicsObject* GetCurrentCollider();
+
 	static bool AABB(SDL_Rect A, SDL_Rect B);
-	bool AllAABB(BoxCollider A, std::string tag);
+	bool AllAABB(BoxCollider A, std::vector<std::string> tags);
 
 private:
 	static Collision* instance;
 	std::vector<PhysicsObject*> colliders;
+	PhysicsObject* currentCollider;
 };

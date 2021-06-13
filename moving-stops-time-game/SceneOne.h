@@ -15,6 +15,7 @@ public:
 private:
 	Collision* collision;
 	Player* player;
-	PhysicsObject* ground1, * ground2, * wall, * platform;
+	PhysicsObject* ground1, * platform, * platform2;
 	int platformDirection = 1;
+	int platform2Direction = 1;
 };

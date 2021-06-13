@@ -131,17 +131,25 @@ bool Collision::AABB(SDL_Rect A, SDL_Rect B) {
 	return false;
 }
 
-bool Collision::AllAABB(BoxCollider A, std::string tag) {
+bool Collision::AllAABB(BoxCollider A, std::vector<std::string> tags) {
 
 	for (auto &collider : colliders) {
 
-		if (collider->GetTag() == tag) {
+		for (auto& tag : tags) {
 
-			if ((A.GetBox().x < collider->GetBox()->GetBox().x + collider->GetBox()->GetBox().w) &&
-				(A.GetBox().x + A.GetBox().w > collider->GetBox()->GetBox().x) &&
-				(A.GetBox().y < collider->GetBox()->GetBox().y + collider->GetBox()->GetBox().h) &&
-				(A.GetBox().y + A.GetBox().h > collider->GetBox()->GetBox().y))
-				return true;
+			if (collider->GetTag() == tag) {
+
+				if ((A.GetBox().x < collider->GetBox()->GetBox().x + collider->GetBox()->GetBox().w) &&
+					(A.GetBox().x + A.GetBox().w > collider->GetBox()->GetBox().x) &&
+					(A.GetBox().y < collider->GetBox()->GetBox().y + collider->GetBox()->GetBox().h) &&
+					(A.GetBox().y + A.GetBox().h > collider->GetBox()->GetBox().y)) {
+
+					currentCollider = collider;
+					return true;
+				}
+				else
+					currentCollider = nullptr;		
+			}
 		}
 	}
 
@@ -151,4 +159,9 @@ bool Collision::AllAABB(BoxCollider A, std::string tag) {
 std::vector<PhysicsObject*> Collision::GetColliders() {
 	
 	return colliders;
+}
+
+PhysicsObject* Collision::GetCurrentCollider() {
+
+	return currentCollider;
 }
