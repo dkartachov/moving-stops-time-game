@@ -11,6 +11,7 @@ public:
 	static bool Initialized();
 
 	Graphics();
+	~Graphics();
 	bool Init();
 
 	SDL_Texture* LoadTexture(std::string path);

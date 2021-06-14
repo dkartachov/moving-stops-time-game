@@ -26,7 +26,7 @@ AudioManager::AudioManager() {
 
 AudioManager::~AudioManager() {
 
-	assetManager = NULL;
+	assetManager = nullptr;
 	Mix_Quit();
 }
 

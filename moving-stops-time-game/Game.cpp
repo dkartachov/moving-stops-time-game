@@ -34,9 +34,6 @@ Game::~Game() {
 	Timer::Release();
 	timer = nullptr;
 
-	Graphics::Release();
-	graphics = nullptr;
-
 	AssetManager::Release();
 	assetManager = nullptr;
 
@@ -48,6 +45,9 @@ Game::~Game() {
 
 	Collision::Release();
 	collision = nullptr;
+
+	Graphics::Release();
+	graphics = nullptr;
 
 	delete mainMenu;
 	mainMenu = nullptr;

@@ -12,7 +12,7 @@ AssetManager* AssetManager::Instance() {
 void AssetManager::Release() {
 
 	delete instance;
-	instance = NULL;
+	instance = nullptr;
 }
 
 AssetManager::AssetManager() {
@@ -22,31 +22,32 @@ AssetManager::AssetManager() {
 AssetManager::~AssetManager() {
 
 	for (auto texture : textures)
-		if (texture.second != NULL)
+		if (texture.second != nullptr)
 			SDL_DestroyTexture(texture.second);
 
 	textures.clear();
 
 	for (auto text : texts)
-		if (text.second != NULL)
+		if (text.second != nullptr)
 			SDL_DestroyTexture(text.second);
 
 	texts.clear();
 
 	for (auto font : fonts)
-		if (font.second != NULL)
+		if (font.second != nullptr)
 			TTF_CloseFont(font.second);
 
 	fonts.clear();
 
-	for (auto track : music)
-		if (track.second != NULL)
-			Mix_FreeMusic(track.second);
+	if (music.size() > 0)
+		for (auto &track : music)
+			if (track.second != nullptr)
+				Mix_FreeMusic(track.second);
 
 	music.clear();
 
 	for (auto sfx : sfxs)
-		if (sfx.second != NULL)
+		if (sfx.second != nullptr)
 			Mix_FreeChunk(sfx.second);
 
 	sfxs.clear();

@@ -22,7 +22,15 @@ bool Graphics::Initialized() {
 }
 
 Graphics::Graphics() {
+
 	initialized = Init();
+}
+
+Graphics::~Graphics() {
+
+	TTF_Quit();
+	IMG_Quit();
+	SDL_Quit();
 }
 
 bool Graphics::Init() {
@@ -100,10 +108,7 @@ void Graphics::Render() {
 }
 
 void Graphics::Exit() {
+
 	SDL_DestroyRenderer(renderer);
 	SDL_DestroyWindow(window);
-
-	TTF_Quit();
-	IMG_Quit();
-	SDL_Quit();
 }
