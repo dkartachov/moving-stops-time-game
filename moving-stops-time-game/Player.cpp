@@ -1,8 +1,8 @@
 #include "Player.h"
 
-Player::Player() : PhysicsObject(20, 50) {
+Player::Player() : PhysicsObject(40, 90) {
 
-	Active(false);
+	//Active(false);
 	Dynamic(true);
 
 	Position(Vector2(Graphics::SCREEN_WIDTH / 2, Graphics::SCREEN_HEIGHT / 2));
@@ -11,7 +11,7 @@ Player::Player() : PhysicsObject(20, 50) {
 	groundedBox = new BoxCollider(18, 4);
 	groundedBox->Parent(this);
 	groundedBox->Position(VEC2_ZERO);
-	groundedBox->Position(Vector2(0.0f, 25));
+	groundedBox->Position(Vector2(0.0f, 45));
 
 	flipped = false;
 	moving = false;
@@ -21,25 +21,29 @@ Player::Player() : PhysicsObject(20, 50) {
 
 	Velocity(VEC2_ZERO);
 
-	idleAnim = new AnimatedSprite("idle.png", 0, 0, 80, 80, 18, 1);
+	/*idleAnim = new AnimatedSprite("idle_1.png", 0, 0, 120, 120, 1, 1);
 	idleAnim->Parent(this);
-	idleAnim->Position(VEC2_ZERO);
+	idleAnim->Position(VEC2_ZERO);*/
 
-	runAnim = new AnimatedSprite("run.png", 0, 0, 80, 80, 24, 1);
+	idle = new Sprite("idle.png");
+	idle->Parent(this);
+	idle->Position(VEC2_ZERO);
+
+	runAnim = new AnimatedSprite("run-cycle.png", 0, 0, 122, 122, 6, 0.8);
 	runAnim->Parent(this);
 	runAnim->Position(VEC2_ZERO);
 
-	jumpAnim = new AnimatedSprite("jump.png", 0, 0, 80, 80, 8, 0.5);
+	jumpAnim = new AnimatedSprite("jump-cycle.png", 0, 0, 122, 122, 2, 0.5);
 	jumpAnim->WrapMode(AnimatedSprite::once);
 	jumpAnim->Parent(this);
 	jumpAnim->Position(VEC2_ZERO);
 
-	landAnim = new AnimatedSprite("jump.png", 80 * 8, 0, 80, 80, 7, 0.85);
+	landAnim = new AnimatedSprite("jump-cycle.png", 122 * 2, 0, 122, 122, 1, 0.5);
 	landAnim->WrapMode(AnimatedSprite::once);
 	landAnim->Parent(this);
 	landAnim->Position(VEC2_ZERO);
 
-	Scale(2 * VEC2_ONE);
+	//Scale(0.25f * VEC2_ONE);
 }
 
 Player::~Player() {
@@ -64,7 +68,8 @@ void Player::PlayAnim(ANIM anim) {
 	switch (anim) {
 	case IDLE:
 
-		idleAnim->Play();
+		//idleAnim->Play();
+		//idle->Render();
 		break;
 
 	case RUNNING:
@@ -107,14 +112,16 @@ void Player::Update() {
 	if (inputManager->KeyDown(SDL_SCANCODE_D)) {
 
 		runAnim->FlipY(SDL_FLIP_NONE);
-		idleAnim->FlipY(SDL_FLIP_NONE);
+		//idleAnim->FlipY(SDL_FLIP_NONE);
+		idle->FlipY(SDL_FLIP_NONE);
 		jumpAnim->FlipY(SDL_FLIP_NONE);
 		landAnim->FlipY(SDL_FLIP_NONE);
 	}
 	else if (inputManager->KeyDown(SDL_SCANCODE_A)) {
 
 		runAnim->FlipY(SDL_FLIP_HORIZONTAL);
-		idleAnim->FlipY(SDL_FLIP_HORIZONTAL);
+		//idleAnim->FlipY(SDL_FLIP_HORIZONTAL);
+		idle->FlipY(SDL_FLIP_HORIZONTAL);
 		jumpAnim->FlipY(SDL_FLIP_HORIZONTAL);
 		landAnim->FlipY(SDL_FLIP_HORIZONTAL);
 	}
@@ -132,7 +139,7 @@ void Player::Update() {
 		if (inputManager->KeyDown(SDL_SCANCODE_D) || inputManager->KeyDown(SDL_SCANCODE_A)) {
 
 			PlayAnim(RUNNING);
-			idleAnim->Reset();
+			//idleAnim->Reset();
 		}
 		else {
 
@@ -169,6 +176,8 @@ void Player::Update() {
 		moving = true;
 	else
 		moving = false;
+
+	printf("moving = %d\n", moving);
 }
 
 void Player::LateUpdate() {
@@ -178,7 +187,8 @@ void Player::LateUpdate() {
 void Player::Render() {
 
 	if (currentAnim == IDLE)
-		idleAnim->Render();
+		idle->Render();
+		//idleAnim->Render();
 	if (currentAnim == RUNNING)
 		runAnim->Render();
 	if (currentAnim == JUMP)

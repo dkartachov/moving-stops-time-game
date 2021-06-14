@@ -46,21 +46,11 @@ SceneOne::~SceneOne() {
 
 void SceneOne::Update() {
 
-	if (InputManager::Instance()->KeyPressed(SDL_SCANCODE_RETURN)) {
-
-		if (!player->IsActive()) {
-			player->Active(true);
-		}
-		else {
-			player->Active(false);
-		}
-	}
-
 	ground1->Update();
 	
 	if (player->IsMoving()) {
 		
-		if (platform->GetPosition().x <= 300.0f || platform->GetPosition().x >= 500.0f)
+		if (platform->GetPosition().x <= 500 || platform->GetPosition().x >= 700.0f)
 			platformDirection = -platformDirection;
 
 		if (platform2->GetPosition().y <= 300.0f || platform2->GetPosition().y >= 500.0f)
