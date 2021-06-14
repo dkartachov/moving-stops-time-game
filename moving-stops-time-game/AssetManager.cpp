@@ -1,10 +1,10 @@
 #include "AssetManager.h"
 
-AssetManager* AssetManager::instance = NULL;
+AssetManager* AssetManager::instance = nullptr;
 
 AssetManager* AssetManager::Instance() {
 
-	if (instance == NULL)
+	if (instance == nullptr)
 		instance = new AssetManager();
 	return instance;
 }
