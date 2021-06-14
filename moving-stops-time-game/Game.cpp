@@ -25,7 +25,8 @@ Game::Game() {
 	audioManager = AudioManager::Instance();
 	collision = Collision::Instance();
 
-	sceneOne = new SceneOne();
+	mainMenu = new MainMenu();
+	//sceneOne = new SceneOne();
 }
 
 Game::~Game() {
@@ -48,6 +49,9 @@ Game::~Game() {
 	Collision::Release();
 	collision = nullptr;
 
+	delete mainMenu;
+	mainMenu = nullptr;
+
 	delete sceneOne;
 	sceneOne = nullptr;
 }
@@ -62,16 +66,28 @@ void Game::Update() {
 
 	////GAME ENTITY UPDATES HERE////
 
-	if (InputManager::Instance()->KeyPressed(SDL_SCANCODE_DELETE)) {
+	if (InputManager::Instance()->KeyPressed(SDL_SCANCODE_ESCAPE)) {
 		delete sceneOne;
 		sceneOne = nullptr;
+		mainMenu = new MainMenu();
 	}
-	if (InputManager::Instance()->KeyPressed(SDL_SCANCODE_RETURN)) {
-		delete sceneOne;
-		sceneOne = nullptr;
-		sceneOne = new SceneOne();
+
+	if (mainMenu != nullptr) {
+
+		mainMenu->Update();
+
+		if (mainMenu->NewGame()) {
+
+			delete mainMenu;
+			mainMenu = nullptr;
+			sceneOne = new SceneOne();
+		}
+		else if (mainMenu->QuitGame()) {
+
+			quit = true;
+		}	
 	}
-	
+		
 	if (sceneOne != nullptr)
 		sceneOne->Update();
 
@@ -95,6 +111,9 @@ void Game::Render() {
 	graphics->Clear();
 
 	////RENDER ENTITIES HERE////
+
+	if (mainMenu != nullptr)
+		mainMenu->Render();
 
 	if (sceneOne != nullptr)
 		sceneOne->Render();

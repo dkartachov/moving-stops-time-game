@@ -3,6 +3,7 @@
 #include "InputManager.h"
 #include "AudioManager.h"
 #include "SceneOne.h"
+#include "MainMenu.h"
 
 class Game {
 public:
@@ -34,4 +35,5 @@ private:
 	Collision* collision;
 
 	SceneOne* sceneOne;
+	MainMenu* mainMenu;
 };
