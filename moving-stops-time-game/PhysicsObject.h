@@ -14,6 +14,8 @@ public:
 	void Dynamic(bool state);
 	bool IsDynamic();
 
+	void GravityModifier(float value);
+
 	void Update();
 	void Render();
 
@@ -25,9 +27,10 @@ public:
 	Vector2 GetVelocity();
 
 private:
+	float g = 300.0f;
+	float gModifier = 1.0f;
 	bool dynamic;
 	Sprite* sprite;
 	BoxCollider* box;
-
 	Vector2 velocity;
 };

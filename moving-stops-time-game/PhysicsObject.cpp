@@ -44,10 +44,15 @@ bool PhysicsObject::IsDynamic() {
 	return dynamic;
 }
 
+void PhysicsObject::GravityModifier(float value) {
+
+	gModifier = value;
+}
+
 void PhysicsObject::Update() {
 
 	if (dynamic)
-		velocity.y += 300 * Timer::Instance()->DeltaTime();
+		velocity.y += gModifier * g * Timer::Instance()->DeltaTime();
 
 	Translate(Timer::Instance()->DeltaTime() * velocity);
 

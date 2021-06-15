@@ -143,10 +143,16 @@ void Player::Update() {
 
 	if (!grounded) {
 
-		if (GetVelocity().y < 0.0f)
+		if (GetVelocity().y < 0.0f) {
+			
 			PlayAnim(JUMP);
-		if (GetVelocity().y > 0.0f)
+			GravityModifier(1);
+		}
+		if (GetVelocity().y > 0.0f) {
+			
 			PlayAnim(LAND);
+			GravityModifier(2);
+		}
 	}
 
 	if (grounded)
