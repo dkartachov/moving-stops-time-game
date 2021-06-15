@@ -33,7 +33,7 @@ Player::Player() : PhysicsObject(40, 100) {
 	jumpAnim->Parent(this);
 	jumpAnim->Position(VEC2_ZERO);
 
-	landAnim = new AnimatedSprite("jump-cycle.png", 122 * 3, 0, 122, 122, 2, 0.2);
+	landAnim = new AnimatedSprite("jump-cycle.png", 122 * 3, 0, 122, 122, 2, 1);
 	landAnim->WrapMode(AnimatedSprite::once);
 	landAnim->Parent(this);
 	landAnim->Position(VEC2_ZERO);
