@@ -21,13 +21,9 @@ Player::Player() : PhysicsObject(40, 90) {
 
 	Velocity(VEC2_ZERO);
 
-	/*idleAnim = new AnimatedSprite("idle_1.png", 0, 0, 120, 120, 1, 1);
+	idleAnim = new AnimatedSprite("idle-cycle.png", 0, 0, 120, 120, 1, 1);
 	idleAnim->Parent(this);
-	idleAnim->Position(VEC2_ZERO);*/
-
-	idle = new Sprite("idle.png");
-	idle->Parent(this);
-	idle->Position(VEC2_ZERO);
+	idleAnim->Position(VEC2_ZERO);
 
 	runAnim = new AnimatedSprite("run-cycle.png", 0, 0, 122, 122, 6, 0.8);
 	runAnim->Parent(this);
@@ -112,16 +108,14 @@ void Player::Update() {
 	if (inputManager->KeyDown(SDL_SCANCODE_D)) {
 
 		runAnim->FlipY(SDL_FLIP_NONE);
-		//idleAnim->FlipY(SDL_FLIP_NONE);
-		idle->FlipY(SDL_FLIP_NONE);
+		idleAnim->FlipY(SDL_FLIP_NONE);
 		jumpAnim->FlipY(SDL_FLIP_NONE);
 		landAnim->FlipY(SDL_FLIP_NONE);
 	}
 	else if (inputManager->KeyDown(SDL_SCANCODE_A)) {
 
 		runAnim->FlipY(SDL_FLIP_HORIZONTAL);
-		//idleAnim->FlipY(SDL_FLIP_HORIZONTAL);
-		idle->FlipY(SDL_FLIP_HORIZONTAL);
+		idleAnim->FlipY(SDL_FLIP_HORIZONTAL);
 		jumpAnim->FlipY(SDL_FLIP_HORIZONTAL);
 		landAnim->FlipY(SDL_FLIP_HORIZONTAL);
 	}
@@ -139,7 +133,7 @@ void Player::Update() {
 		if (inputManager->KeyDown(SDL_SCANCODE_D) || inputManager->KeyDown(SDL_SCANCODE_A)) {
 
 			PlayAnim(RUNNING);
-			//idleAnim->Reset();
+			idleAnim->Reset();
 		}
 		else {
 
@@ -187,8 +181,7 @@ void Player::LateUpdate() {
 void Player::Render() {
 
 	if (currentAnim == IDLE)
-		idle->Render();
-		//idleAnim->Render();
+		idleAnim->Render();
 	if (currentAnim == RUNNING)
 		runAnim->Render();
 	if (currentAnim == JUMP)

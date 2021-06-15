@@ -26,8 +26,7 @@ private:
 	Timer* timer;
 
 	ANIM currentAnim;
-	//AnimatedSprite* idleAnim;
-	Sprite* idle;
+	AnimatedSprite* idleAnim;
 	AnimatedSprite* runAnim;
 	AnimatedSprite* jumpAnim;
 	AnimatedSprite* landAnim;
