@@ -4,7 +4,9 @@ Player::Player() : PhysicsObject(40, 100) {
 
 	Dynamic(true);
 
-	//Position(Vector2(Graphics::SCREEN_WIDTH / 2, Graphics::SCREEN_HEIGHT / 2));
+	jumping = false;
+	jumpTime = 0.25f;
+	jumpTimer = 0.0f;
 
 	grounded = false;
 	groundedBox = new BoxCollider(18, 4);
@@ -99,8 +101,6 @@ void Player::Update() {
 		onPlatform = true;
 	}
 		
-	//printf("Grounded = %d\n", grounded);
-
 	if (inputManager->KeyDown(SDL_SCANCODE_D)) {
 
 		runAnim->FlipY(SDL_FLIP_NONE);
@@ -143,18 +143,29 @@ void Player::Update() {
 		if (inputManager->KeyPressed(SDL_SCANCODE_SPACE)) {
 
 			Jump();
+			jumping = true;
 		}
 	}
 	
-	if (inputManager->KeyDown(SDL_SCANCODE_SPACE)) {
+	if (inputManager->KeyDown(SDL_SCANCODE_SPACE) && jumping) {
 
-		GravityModifier(-0.5f);
-		//Velocity(Vector2(GetVelocity().x, -jumpSpeed));
-		printf("holding jump...\n");
+		jumpTimer += timer->DeltaTime();
+		printf("jump timer = %f\n", jumpTimer);
+
+		if (jumpTimer >= jumpTime) {
+
+			jumping = false;
+			jumpTimer = 0.0f;
+			GravityModifier(1);
+		}
+		else
+			GravityModifier(-1);
 	}
 
 	if (inputManager->KeyReleased(SDL_SCANCODE_SPACE)) {
 
+		jumping = false;
+		jumpTimer = 0.0f;
 		GravityModifier(1);
 	}
 

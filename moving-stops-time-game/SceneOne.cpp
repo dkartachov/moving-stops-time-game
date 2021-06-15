@@ -61,10 +61,10 @@ void SceneOne::Update() {
 	
 	if (player->IsMoving()) {
 		
-		if (platform->GetPosition().x <= 500 || platform->GetPosition().x >= 700.0f)
+		if (platform->GetPosition().x <= levelWidth / 2 - 250 || platform->GetPosition().x >= levelWidth / 2 + 250)
 			platformDirection = -platformDirection;
 
-		if (platform2->GetPosition().y <= 300.0f || platform2->GetPosition().y >= 500.0f)
+		if (platform2->GetPosition().y <= levelHeight / 2 - 250 || platform2->GetPosition().y >= levelHeight / 2 + 250)
 			platform2Direction = -platform2Direction;
 
 		platform->Velocity(platformDirection * 100 * VEC2_RIGHT);
