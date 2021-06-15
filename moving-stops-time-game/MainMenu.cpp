@@ -9,9 +9,9 @@ MainMenu::MainMenu() {
 
 	menuBox = new GameEntity(Graphics::SCREEN_WIDTH / 2, Graphics::SCREEN_HEIGHT / 2);
 
-	newGameButton = new Sprite("New Game", "Roboto-Regular.ttf", 48, { 255, 255, 255 });
-	continueGameButton = new Sprite("Continue", "Roboto-Regular.ttf", 48, { 255, 255, 255 });
-	quitGameButton = new Sprite("Quit", "Roboto-Regular.ttf", 48, { 255, 255, 255 });
+	newGameButton = new Sprite("New Game", "Amatic-Regular.ttf", 100, { 0, 0, 0});
+	continueGameButton = new Sprite("Continue", "Amatic-Regular.ttf", 100, { 0, 0, 0});
+	quitGameButton = new Sprite("Quit", "Amatic-Regular.ttf", 100, { 0, 0, 0 });
 	cursor = new Sprite("hand-cursor.png");
 
 	newGameButton->Parent(menuBox);
