@@ -2,7 +2,7 @@
 
 SceneOne::SceneOne() {
 
-	levelWidth = levelHeight = 1600;
+	levelWidth = levelHeight = 4000;
 
 	camera = Camera::Instance();
 	collision = Collision::Instance();
@@ -15,9 +15,9 @@ SceneOne::SceneOne() {
 	platform->Scale(Vector2(1, 0.5f));
 	platform2->Scale(Vector2(1, 0.5f));
 
-	ground1->Position(Vector2(Graphics::SCREEN_WIDTH / 2 - 300, Graphics::SCREEN_HEIGHT / 2));
-	platform->Position(Vector2(Graphics::SCREEN_WIDTH / 2, Graphics::SCREEN_HEIGHT / 2 - 50));
-	platform2->Position(Vector2(Graphics::SCREEN_WIDTH / 2 + 300, Graphics::SCREEN_HEIGHT / 2));
+	ground1->Position(Vector2(levelWidth / 2, levelHeight / 2));
+	platform->Position(Vector2(levelWidth / 2 + 200, levelHeight / 2 - 200));
+	platform2->Position(Vector2(levelWidth / 2 - 200, levelHeight / 2 - 200));
 
 	ground1->Tag("Ground");
 	platform->Tag("Platform");
@@ -28,8 +28,9 @@ SceneOne::SceneOne() {
 	collision->AddCollider(platform2);
 
 	player = new Player();
-	player->Position(player->GetPosition() + 150 * VEC2_DOWN + 300 * VEC2_LEFT);
+	player->Position(Vector2(levelWidth / 2, levelHeight / 2 - 100));
 
+	//camera->Position(player->GetPosition());
 	camera->Parent(player);
 	camera->Position(VEC2_ZERO);
 
@@ -51,6 +52,7 @@ SceneOne::~SceneOne() {
 	camera = nullptr;
 
 	collision->Clear();
+	collision = nullptr;
 }
 
 void SceneOne::Update() {
@@ -78,8 +80,20 @@ void SceneOne::Update() {
 		platform->Update();
 		platform2->Update();
 	}
-		
-	printf("Player/Camera : (%f, %f)/(%f, %f)\n", player->GetPosition().x, player->GetPosition().y, camera->GetPosition().x, camera->GetPosition().y);
+
+	camera->Parent(player);
+	camera->Position(VEC2_ZERO);
+
+	if (camera->GetPosition().y - camera->GetHeight() / 2 < 0) {
+
+		camera->Parent(nullptr);
+		camera->Position(Vector2(camera->GetPosition().x, camera->GetHeight() / 2));
+	}
+	else if (camera->GetPosition().y + camera->GetHeight() / 2 > levelHeight) {
+
+		camera->Parent(nullptr);
+		camera->Position(Vector2(camera->GetPosition().x, levelHeight - camera->GetHeight() / 2));
+	}
 }
 
 void SceneOne::LateUpdate() {

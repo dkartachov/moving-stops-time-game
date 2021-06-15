@@ -8,8 +8,8 @@ public:
 	static Camera* Instance();
 	static void Release();
 
-	void Size(int width);
-
+	int GetWidth();
+	int GetHeight();
 private:
 	Camera();
 

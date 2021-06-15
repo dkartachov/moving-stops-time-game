@@ -15,14 +15,18 @@ void Camera::Release() {
 	instance = nullptr;
 }
 
+int Camera::GetWidth() {
+	
+	return w;
+}
+
+int Camera::GetHeight() {
+
+	return h;
+}
+
 Camera::Camera() {
 
 	w = Graphics::SCREEN_WIDTH;
-	h = w * 9 / 16;
-}
-
-void Camera::Size(int width) {
-
-	w = width;
 	h = w * 9 / 16;
 }

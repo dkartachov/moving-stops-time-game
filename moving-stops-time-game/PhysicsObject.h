@@ -17,7 +17,7 @@ public:
 	void GravityModifier(float value);
 
 	void Update();
-	void Render();
+	void Render(Sprite::RENDER_MODE mode = Sprite::CAMERA);
 
 	BoxCollider* GetBox();
 

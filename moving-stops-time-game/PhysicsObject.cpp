@@ -59,9 +59,9 @@ void PhysicsObject::Update() {
 	box->Update();
 }
 
-void PhysicsObject::Render() {
+void PhysicsObject::Render(Sprite::RENDER_MODE mode) {
 
-	sprite->Render();
+	sprite->Render(mode);
 }
 
 BoxCollider* PhysicsObject::GetBox() {

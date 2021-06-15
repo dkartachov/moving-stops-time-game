@@ -4,7 +4,7 @@ Player::Player() : PhysicsObject(40, 100) {
 
 	Dynamic(true);
 
-	Position(Vector2(Graphics::SCREEN_WIDTH / 2, Graphics::SCREEN_HEIGHT / 2));
+	//Position(Vector2(Graphics::SCREEN_WIDTH / 2, Graphics::SCREEN_HEIGHT / 2));
 
 	grounded = false;
 	groundedBox = new BoxCollider(18, 4);
@@ -194,11 +194,11 @@ void Player::LateUpdate() {
 void Player::Render() {
 
 	if (currentAnim == IDLE)
-		idleAnim->Render();
+		idleAnim->Render(Sprite::CAMERA);
 	if (currentAnim == RUNNING)
-		runAnim->Render();
+		runAnim->Render(Sprite::CAMERA);
 	if (currentAnim == JUMP)
-		jumpAnim->Render();
+		jumpAnim->Render(Sprite::CAMERA);
 	if (currentAnim == LAND)
-		landAnim->Render();
+		landAnim->Render(Sprite::CAMERA);
 }
