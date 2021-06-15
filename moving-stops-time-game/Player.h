@@ -33,8 +33,10 @@ private:
 	BoxCollider* groundedBox;
 
 	const int moveSpeed = 250;
-	const int jumpSpeed = 200;
+	const int jumpSpeed = 150;
 
+	bool jumping;
+	
 	bool grounded;
 	bool moving;
 	bool flipped;

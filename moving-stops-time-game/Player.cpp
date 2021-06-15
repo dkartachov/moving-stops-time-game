@@ -137,21 +137,38 @@ void Player::Update() {
 			runAnim->Reset();
 		}
 	}
-				
-	if (inputManager->KeyPressed(SDL_SCANCODE_SPACE))
-		Jump();
+			
+	if (grounded) {
+
+		if (inputManager->KeyPressed(SDL_SCANCODE_SPACE)) {
+
+			Jump();
+		}
+	}
+	
+	if (inputManager->KeyDown(SDL_SCANCODE_SPACE)) {
+
+		GravityModifier(-0.5f);
+		//Velocity(Vector2(GetVelocity().x, -jumpSpeed));
+		printf("holding jump...\n");
+	}
+
+	if (inputManager->KeyReleased(SDL_SCANCODE_SPACE)) {
+
+		GravityModifier(1);
+	}
 
 	if (!grounded) {
 
 		if (GetVelocity().y < 0.0f) {
 			
 			PlayAnim(JUMP);
-			GravityModifier(1);
+			//GravityModifier(1);
 		}
 		if (GetVelocity().y > 0.0f) {
 			
 			PlayAnim(LAND);
-			GravityModifier(2);
+			GravityModifier(2.5f);
 		}
 	}
 
