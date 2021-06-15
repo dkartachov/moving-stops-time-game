@@ -61,8 +61,8 @@ void Sprite::Render() {
 	Vector2 pos = GetPosition(world);
 	Vector2 scale = GetScale(world);
 
-	renderRect.x = (int)(pos.x - width * scale.x * 0.5f);
-	renderRect.y = (int)(pos.y - height * scale.y * 0.5f);
+	renderRect.x = (int)(pos.x - width * scale.x * 0.5f) - Camera::Instance()->GetPosition().x + 1200 / 2;
+	renderRect.y = (int)(pos.y - height * scale.y * 0.5f) - Camera::Instance()->GetPosition().y + 675 / 2;
 	renderRect.w = (int)(width * scale.x);
 	renderRect.h = (int)(height * scale.y);
 	

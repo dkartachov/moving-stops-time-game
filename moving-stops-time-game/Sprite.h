@@ -1,6 +1,7 @@
 #pragma once
 #include "GameEntity.h"
 #include "AssetManager.h"
+#include "Camera.h"
 
 class Sprite : public GameEntity {
 public:

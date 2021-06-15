@@ -2,6 +2,9 @@
 
 SceneOne::SceneOne() {
 
+	levelWidth = levelHeight = 1600;
+
+	camera = Camera::Instance();
 	collision = Collision::Instance();
 
 	ground1 = new PhysicsObject("ground.png", false);
@@ -27,6 +30,9 @@ SceneOne::SceneOne() {
 	player = new Player();
 	player->Position(player->GetPosition() + 150 * VEC2_DOWN + 300 * VEC2_LEFT);
 
+	camera->Parent(player);
+	camera->Position(VEC2_ZERO);
+
 	collision->AddCollider(player);
 }
 
@@ -40,6 +46,9 @@ SceneOne::~SceneOne() {
 	platform = nullptr;
 	delete platform2;
 	platform2 = nullptr;
+
+	Camera::Release();
+	camera = nullptr;
 
 	collision->Clear();
 }
@@ -70,6 +79,7 @@ void SceneOne::Update() {
 		platform2->Update();
 	}
 		
+	printf("Player/Camera : (%f, %f)/(%f, %f)\n", player->GetPosition().x, player->GetPosition().y, camera->GetPosition().x, camera->GetPosition().y);
 }
 
 void SceneOne::LateUpdate() {
