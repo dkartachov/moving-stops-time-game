@@ -32,6 +32,9 @@ private:
 	AnimatedSprite* landAnim;
 	BoxCollider* groundedBox;
 
+	const int moveSpeed = 250;
+	const int jumpSpeed = 200;
+
 	bool grounded;
 	bool moving;
 	bool flipped;

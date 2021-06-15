@@ -1,8 +1,7 @@
 #include "Player.h"
 
-Player::Player() : PhysicsObject(40, 90) {
+Player::Player() : PhysicsObject(40, 100) {
 
-	//Active(false);
 	Dynamic(true);
 
 	Position(Vector2(Graphics::SCREEN_WIDTH / 2, Graphics::SCREEN_HEIGHT / 2));
@@ -11,7 +10,7 @@ Player::Player() : PhysicsObject(40, 90) {
 	groundedBox = new BoxCollider(18, 4);
 	groundedBox->Parent(this);
 	groundedBox->Position(VEC2_ZERO);
-	groundedBox->Position(Vector2(0.0f, 45));
+	groundedBox->Position(Vector2(0.0f, 50));
 
 	flipped = false;
 	moving = false;
@@ -21,7 +20,7 @@ Player::Player() : PhysicsObject(40, 90) {
 
 	Velocity(VEC2_ZERO);
 
-	idleAnim = new AnimatedSprite("idle-cycle.png", 0, 0, 120, 120, 1, 1);
+	idleAnim = new AnimatedSprite("idle-cycle.png", 0, 0, 122, 122, 8, 0.8);
 	idleAnim->Parent(this);
 	idleAnim->Position(VEC2_ZERO);
 
@@ -29,17 +28,15 @@ Player::Player() : PhysicsObject(40, 90) {
 	runAnim->Parent(this);
 	runAnim->Position(VEC2_ZERO);
 
-	jumpAnim = new AnimatedSprite("jump-cycle.png", 0, 0, 122, 122, 2, 0.5);
+	jumpAnim = new AnimatedSprite("jump-cycle.png", 0, 0, 122, 122, 3, 0.3);
 	jumpAnim->WrapMode(AnimatedSprite::once);
 	jumpAnim->Parent(this);
 	jumpAnim->Position(VEC2_ZERO);
 
-	landAnim = new AnimatedSprite("jump-cycle.png", 122 * 2, 0, 122, 122, 1, 0.5);
+	landAnim = new AnimatedSprite("jump-cycle.png", 122 * 3, 0, 122, 122, 2, 0.2);
 	landAnim->WrapMode(AnimatedSprite::once);
 	landAnim->Parent(this);
 	landAnim->Position(VEC2_ZERO);
-
-	//Scale(0.25f * VEC2_ONE);
 }
 
 Player::~Player() {
@@ -53,7 +50,7 @@ bool Player::IsMoving() {
 
 void Player::Jump() {
 
-	Velocity(Vector2(GetVelocity().x, -200.0f));
+	Velocity(Vector2(GetVelocity().x, -jumpSpeed));
 	jumpAnim->Reset();
 }
 
@@ -64,8 +61,7 @@ void Player::PlayAnim(ANIM anim) {
 	switch (anim) {
 	case IDLE:
 
-		//idleAnim->Play();
-		//idle->Render();
+		idleAnim->Play();
 		break;
 
 	case RUNNING:
@@ -121,9 +117,9 @@ void Player::Update() {
 	}
 
 	if (inputManager->KeyDown(SDL_SCANCODE_D))
-		Velocity(Vector2(200.0f, GetVelocity().y));
+		Velocity(Vector2(moveSpeed, GetVelocity().y));
 	else if (inputManager->KeyDown(SDL_SCANCODE_A))
-		Velocity(Vector2(-200.0f, GetVelocity().y));
+		Velocity(Vector2(-moveSpeed, GetVelocity().y));
 
 	if (inputManager->KeyReleased(SDL_SCANCODE_D) || inputManager->KeyReleased(SDL_SCANCODE_A))
 		Velocity(Vector2(0.0f, GetVelocity().y));
@@ -162,16 +158,10 @@ void Player::Update() {
 	PhysicsObject::Update();
 	groundedBox->Update();
 
-	Vector2 pos = GetPosition();
-	float delx = pos.x - prev.x;
-	float dely = pos.y - prev.y;
-
 	if ((inputManager->KeyDown(SDL_SCANCODE_D)|| inputManager->KeyDown(SDL_SCANCODE_A) || !grounded) && !onPlatform)
 		moving = true;
 	else
 		moving = false;
-
-	printf("moving = %d\n", moving);
 }
 
 void Player::LateUpdate() {
