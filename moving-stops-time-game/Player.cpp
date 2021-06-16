@@ -4,15 +4,23 @@ Player::Player() : PhysicsObject(40, 100) {
 
 	Dynamic(true);
 
+	sliding = false;
 	jumping = false;
 	jumpTime = 0.25f;
 	jumpTimer = 0.0f;
 
+	touchingWall = false;
 	grounded = false;
+
 	groundedBox = new BoxCollider(18, 4);
 	groundedBox->Parent(this);
 	groundedBox->Position(VEC2_ZERO);
 	groundedBox->Position(Vector2(0.0f, 50));
+
+	wallBox = new BoxCollider(4, 20);
+	wallBox->Parent(this);
+	wallBox->Position(VEC2_ZERO);
+	wallBox->Position(Vector2(-20, 0));
 
 	flipped = false;
 	moving = false;
@@ -92,6 +100,8 @@ void Player::Update() {
 	Vector2 prev = GetPosition();
 
 	grounded = Collision::Instance()->AllAABB(*groundedBox, { "Ground" , "Platform" });
+	touchingWall = Collision::Instance()->AllAABB(*wallBox, { "Wall" });
+
 	bool onPlatform = false;
 	std::string s;
 	if (Collision::Instance()->GetCurrentCollider() != nullptr)
@@ -168,7 +178,7 @@ void Player::Update() {
 		GravityModifier(1);
 	}
 
-	if (!grounded) {
+	if (!grounded && !sliding) {
 
 		if (GetVelocity().y < 0.0f) {
 			
@@ -185,11 +195,48 @@ void Player::Update() {
 	if (grounded)
 		landAnim->Reset();
 
+	if (touchingWall) {
+
+		if (inputManager->KeyDown(SDL_SCANCODE_A) && !sliding) {
+
+			sliding = true;
+			Velocity(Vector2(GetVelocity().x, 0.0f));
+		}
+	}
+	else if (!touchingWall) {
+
+		sliding = false;
+	}
+
+	if (sliding) {
+
+		GravityModifier(0.2f);
+	}
+
+	//if (touchingWall && inputManager->KeyDown(SDL_SCANCODE_A) && !sliding) {
+
+	//	sliding = true;
+	//	Velocity(Vector2(GetVelocity().x, 0.0f));
+	//	//GravityModifier(1);
+	//}
+	//
+	//if (touchingWall && inputManager->KeyReleased(SDL_SCANCODE_A)) {
+
+	//	sliding = false;
+	//	//GravityModifier(2.5f);
+	//}
+
+	//if (sliding) {
+
+	//	GravityModifier(0.5f);
+	//}
+
 	//printf("X Position: %f , X Velocity: %f\n", GetPosition().x, GetVelocity().x);
 	//printf("Y Position: %f , Y Velocity: %f\n", GetPosition().y, GetVelocity().y);
 
 	PhysicsObject::Update();
 	groundedBox->Update();
+	wallBox->Update();
 
 	if ((inputManager->KeyDown(SDL_SCANCODE_D)|| inputManager->KeyDown(SDL_SCANCODE_A) || !grounded) && !onPlatform)
 		moving = true;

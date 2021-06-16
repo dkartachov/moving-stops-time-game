@@ -30,6 +30,8 @@ private:
 	AnimatedSprite* runAnim;
 	AnimatedSprite* jumpAnim;
 	AnimatedSprite* landAnim;
+
+	BoxCollider* wallBox;
 	BoxCollider* groundedBox;
 
 	const int moveSpeed = 250;
@@ -37,7 +39,9 @@ private:
 
 	float jumpTime, jumpTimer;
 	bool jumping;
+	bool sliding;
 	
+	bool touchingWall;
 	bool grounded;
 	bool moving;
 	bool flipped;

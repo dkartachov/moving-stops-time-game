@@ -57,7 +57,6 @@ bool Collision::YCausesCollision(PhysicsObject* A, PhysicsObject* B) {
 	A->Position(Vector2(A->GetPosition().x, A->GetPosition().y - A->GetVelocity().y * delT));
 	B->Position(Vector2(B->GetPosition().x, B->GetPosition().y - B->GetVelocity().y * delT));
 
-
 	bool hadCollision = AABB(A->GetBox()->GetBox(), B->GetBox()->GetBox());
 	A->Position(Vector2(A->GetPosition().x, A->GetPosition().y + A->GetVelocity().y * delT));
 	B->Position(Vector2(B->GetPosition().x, B->GetPosition().y + B->GetVelocity().y * delT));
@@ -145,10 +144,9 @@ bool Collision::AllAABB(BoxCollider A, std::vector<std::string> tags) {
 					(A.GetBox().y + A.GetBox().h > collider->GetBox()->GetBox().y)) {
 
 					currentCollider = collider;
+
 					return true;
 				}
-				else
-					currentCollider = nullptr;		
 			}
 		}
 	}

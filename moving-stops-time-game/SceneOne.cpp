@@ -26,6 +26,7 @@ SceneOne::SceneOne() : Scene(3000, Graphics::SCREEN_HEIGHT) {
 
 	ground1->Tag("Ground");
 	ground2->Tag("Ground");
+	wall->Tag("Wall");
 	platform1->Tag("Platform");
 
 	collision->AddCollider(ground1);

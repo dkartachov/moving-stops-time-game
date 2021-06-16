@@ -27,7 +27,7 @@ public:
 	Vector2 GetVelocity();
 
 private:
-	float g = 300.0f;
+	float g = 600.0f;
 	float gModifier = 1.0f;
 	bool dynamic;
 	Sprite* sprite;
