@@ -32,6 +32,12 @@ Game::Game() {
 
 Game::~Game() {
 
+	delete mainMenu;
+	mainMenu = nullptr;
+
+	delete sceneOne;
+	sceneOne = nullptr;
+
 	Timer::Release();
 	timer = nullptr;
 
@@ -52,12 +58,6 @@ Game::~Game() {
 
 	Camera::Release();
 	camera = nullptr;
-
-	delete mainMenu;
-	mainMenu = nullptr;
-
-	delete sceneOne;
-	sceneOne = nullptr;
 }
 
 void Game::EarlyUpdate() {
@@ -136,6 +136,8 @@ void Game::Run() {
 		while (SDL_PollEvent(&events))
 			if (events.type == SDL_QUIT)
 				quit = true;
+
+		//printf("%f\n", timer->DeltaTime());
 
 		if (timer->DeltaTime() >= 1.0f / FRAME_RATE) {
 
