@@ -56,29 +56,14 @@ void Sprite::FlipY(SDL_RendererFlip flipY) {
 	this->flipY = flipY;
 }
 
-void Sprite::Render(RENDER_MODE mode) {
+void Sprite::Render() {
 
 	Vector2 pos = GetPosition(world);
 	Vector2 scale = GetScale(world);
 
-	switch (mode) {
 
-	case WORLD:
-
-		renderRect.x = (int)(pos.x - width * scale.x * 0.5f);
-		renderRect.y = (int)(pos.y - height * scale.y * 0.5f);
-		break;
-
-	case CAMERA:
-
-		renderRect.x = (int)(pos.x - width * scale.x * 0.5f) - Camera::Instance()->GetPosition().x + Camera::Instance()->GetWidth() / 2;
-		renderRect.y = (int)(pos.y - height * scale.y * 0.5f) - Camera::Instance()->GetPosition().y + Camera::Instance()->GetHeight() / 2;
-		break;
-
-	default:
-		break;
-	}
-
+	renderRect.x = (int)(pos.x - width * scale.x * 0.5f) - Camera::Instance()->GetPosition().x + Camera::Instance()->GetWidth() / 2;
+	renderRect.y = (int)(pos.y - height * scale.y * 0.5f) - Camera::Instance()->GetPosition().y + Camera::Instance()->GetHeight() / 2;
 	renderRect.w = (int)(width * scale.x);
 	renderRect.h = (int)(height * scale.y);
 	

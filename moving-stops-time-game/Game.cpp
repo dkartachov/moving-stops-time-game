@@ -10,6 +10,7 @@ Game* Game::Instance() {
 }
 
 void Game::Release() {
+
 	delete instance;
 	instance = NULL;
 }
@@ -48,6 +49,9 @@ Game::~Game() {
 
 	Graphics::Release();
 	graphics = nullptr;
+
+	Camera::Release();
+	camera = nullptr;
 
 	delete mainMenu;
 	mainMenu = nullptr;

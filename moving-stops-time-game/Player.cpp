@@ -205,11 +205,11 @@ void Player::LateUpdate() {
 void Player::Render() {
 
 	if (currentAnim == IDLE)
-		idleAnim->Render(Sprite::CAMERA);
+		idleAnim->Render();
 	if (currentAnim == RUNNING)
-		runAnim->Render(Sprite::CAMERA);
+		runAnim->Render();
 	if (currentAnim == JUMP)
-		jumpAnim->Render(Sprite::CAMERA);
+		jumpAnim->Render();
 	if (currentAnim == LAND)
-		landAnim->Render(Sprite::CAMERA);
+		landAnim->Render();
 }

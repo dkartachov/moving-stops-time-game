@@ -5,15 +5,13 @@
 
 class Sprite : public GameEntity {
 public:
-	enum RENDER_MODE { WORLD = 0, CAMERA };
-public:
 	Sprite(const char* filename);
 	Sprite(const char* filename, int x, int y, int w, int h);
 	Sprite(std::string text, std::string fontPath, int size, SDL_Color color = {0, 0, 0});
 
 	SDL_Rect GetRect();
 	void FlipY(SDL_RendererFlip flipY);
-	void Render(RENDER_MODE mode = WORLD);
+	void Render();
 protected:
 	SDL_RendererFlip flipY;
 	SDL_Texture* texture;

@@ -21,6 +21,7 @@ private:
 	bool newGame, continueGame, quitGame;
 
 	InputManager* inputManager;
+	Camera* camera;
 
 	GameEntity* menuBox;
 	Sprite* newGameButton;

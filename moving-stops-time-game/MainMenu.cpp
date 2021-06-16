@@ -6,6 +6,9 @@ MainMenu::MainMenu() {
 	newGame = continueGame = quitGame = false;
 
 	inputManager = InputManager::Instance();
+	camera = Camera::Instance();
+
+	camera->Position(Vector2(Graphics::SCREEN_WIDTH / 2, Graphics::SCREEN_HEIGHT / 2));
 
 	menuBox = new GameEntity(Graphics::SCREEN_WIDTH / 2, Graphics::SCREEN_HEIGHT / 2);
 
@@ -45,6 +48,9 @@ MainMenu::~MainMenu() {
 	quitGameButton = nullptr;
 	delete cursor;
 	cursor = nullptr;
+
+	camera->Release();
+	camera = nullptr;
 }
 
 bool MainMenu::NewGame() {

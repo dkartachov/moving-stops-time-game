@@ -33,6 +33,7 @@ private:
 	InputManager* inputManager;
 	AudioManager* audioManager;
 	Collision* collision;
+	Camera* camera;
 
 	SceneOne* sceneOne;
 	MainMenu* mainMenu;

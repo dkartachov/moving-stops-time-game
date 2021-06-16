@@ -30,7 +30,6 @@ SceneOne::SceneOne() {
 	player = new Player();
 	player->Position(Vector2(levelWidth / 2, levelHeight / 2 - 100));
 
-	//camera->Position(player->GetPosition());
 	camera->Parent(player);
 	camera->Position(VEC2_ZERO);
 
@@ -48,7 +47,7 @@ SceneOne::~SceneOne() {
 	delete platform2;
 	platform2 = nullptr;
 
-	Camera::Release();
+	camera->Release();
 	camera = nullptr;
 
 	collision->Clear();
