@@ -1,8 +1,9 @@
 #pragma once
+#include "Scene.h"
 #include "Sprite.h"
 #include "InputManager.h"
 
-class MainMenu {
+class MainMenu : public Scene {
 public:
 	enum MODE { NEW = 0, CONTINUE, QUIT };
 public:
@@ -21,7 +22,6 @@ private:
 	bool newGame, continueGame, quitGame;
 
 	InputManager* inputManager;
-	Camera* camera;
 
 	GameEntity* menuBox;
 	Sprite* newGameButton;

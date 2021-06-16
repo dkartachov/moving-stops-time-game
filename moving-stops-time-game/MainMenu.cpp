@@ -1,16 +1,13 @@
 #include "MainMenu.h"
 
-MainMenu::MainMenu() {
+MainMenu::MainMenu() : Scene(Graphics::SCREEN_WIDTH, Graphics::SCREEN_HEIGHT) {
 
 	mode = NEW;
 	newGame = continueGame = quitGame = false;
 
 	inputManager = InputManager::Instance();
-	camera = Camera::Instance();
 
-	camera->Position(Vector2(Graphics::SCREEN_WIDTH / 2, Graphics::SCREEN_HEIGHT / 2));
-
-	menuBox = new GameEntity(Graphics::SCREEN_WIDTH / 2, Graphics::SCREEN_HEIGHT / 2);
+	menuBox = new GameEntity(levelWidth / 2, levelHeight / 2);
 
 	newGameButton = new Sprite("New Game", "Amatic-Regular.ttf", 100, { 0, 0, 0});
 	continueGameButton = new Sprite("Continue", "Amatic-Regular.ttf", 100, { 0, 0, 0});
@@ -48,9 +45,6 @@ MainMenu::~MainMenu() {
 	quitGameButton = nullptr;
 	delete cursor;
 	cursor = nullptr;
-
-	camera->Release();
-	camera = nullptr;
 }
 
 bool MainMenu::NewGame() {

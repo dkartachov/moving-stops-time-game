@@ -87,6 +87,9 @@
     <ClCompile Include="Game.cpp">
       <Filter>Source Files\Moving Stops Time</Filter>
     </ClCompile>
+    <ClCompile Include="Scene.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="GameEntity.h">
