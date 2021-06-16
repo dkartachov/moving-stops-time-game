@@ -1,11 +1,6 @@
 #include "SceneOne.h"
 
-SceneOne::SceneOne() {
-
-	levelWidth = levelHeight = 4000;
-
-	camera = Camera::Instance();
-	collision = Collision::Instance();
+SceneOne::SceneOne() : Scene(4000, 4000) {
 
 	ground1 = new PhysicsObject("ground.png", false);
 	platform = new PhysicsObject("ground.png", false);
@@ -46,12 +41,6 @@ SceneOne::~SceneOne() {
 	platform = nullptr;
 	delete platform2;
 	platform2 = nullptr;
-
-	camera->Release();
-	camera = nullptr;
-
-	collision->Clear();
-	collision = nullptr;
 }
 
 void SceneOne::Update() {
@@ -93,11 +82,6 @@ void SceneOne::Update() {
 		camera->Parent(nullptr);
 		camera->Position(Vector2(camera->GetPosition().x, levelHeight - camera->GetHeight() / 2));
 	}
-}
-
-void SceneOne::LateUpdate() {
-
-	collision->ResolveCollisions();
 }
 
 void SceneOne::Render() {

@@ -137,6 +137,8 @@ void Game::Run() {
 			if (events.type == SDL_QUIT)
 				quit = true;
 
+		printf("%f\n", timer->DeltaTime());
+
 		if (timer->DeltaTime() >= 1.0f / FRAME_RATE) {
 
 			EarlyUpdate();

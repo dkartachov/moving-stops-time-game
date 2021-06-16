@@ -1,23 +1,19 @@
 #pragma once
-#include "Player.h"
 #include "Collision.h"
 #include "Camera.h"
 
 class Scene {
 
 public:
-	Scene();
+	Scene(int levelWidth, int levelHeight);
 	~Scene();
 
 	virtual void Update();
 	virtual void LateUpdate();
 	virtual void Render();
 
-private:
+protected:
 	int levelWidth, levelHeight;
-
 	Collision* collision;
-	Camera* camera;
-	Player* player;
-
+	Camera* camera;	
 };
