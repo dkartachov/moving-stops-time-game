@@ -143,5 +143,8 @@
     <ClInclude Include="MainMenu.h">
       <Filter>Header Files\Moving Stops Time</Filter>
     </ClInclude>
+    <ClInclude Include="Scene.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

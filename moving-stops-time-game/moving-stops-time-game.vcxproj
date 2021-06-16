@@ -179,6 +179,7 @@
     <ClInclude Include="Mathematics.h" />
     <ClInclude Include="PhysicsObject.h" />
     <ClInclude Include="Player.h" />
+    <ClInclude Include="Scene.h" />
     <ClInclude Include="SceneOne.h" />
     <ClInclude Include="Sprite.h" />
     <ClInclude Include="Text.h" />
