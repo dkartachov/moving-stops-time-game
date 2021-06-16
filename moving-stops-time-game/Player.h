@@ -39,10 +39,13 @@ private:
 
 	float jumpTime, jumpTimer;
 	bool jumping;
+	bool wallJumping;
+
+	bool touchingWall;
 	bool sliding;
 	
-	bool touchingWall;
 	bool grounded;
 	bool moving;
+
 	bool flipped;
 };

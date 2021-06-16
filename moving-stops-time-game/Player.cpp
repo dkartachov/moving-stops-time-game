@@ -4,12 +4,14 @@ Player::Player() : PhysicsObject(40, 100) {
 
 	Dynamic(true);
 
-	sliding = false;
+	wallJumping = false;
 	jumping = false;
 	jumpTime = 0.25f;
 	jumpTimer = 0.0f;
 
 	touchingWall = false;
+	sliding = false;
+
 	grounded = false;
 
 	groundedBox = new BoxCollider(18, 4);
@@ -148,12 +150,13 @@ void Player::Update() {
 		}
 	}
 			
-	if (grounded) {
+	if (grounded || sliding) {
 
 		if (inputManager->KeyPressed(SDL_SCANCODE_SPACE)) {
 
 			Jump();
 			jumping = true;
+			sliding = false;
 		}
 	}
 	
@@ -195,15 +198,20 @@ void Player::Update() {
 	if (grounded)
 		landAnim->Reset();
 
-	if (touchingWall) {
+	if (touchingWall && !jumping) {
 
 		if (inputManager->KeyDown(SDL_SCANCODE_A) && !sliding) {
 
 			sliding = true;
 			Velocity(Vector2(GetVelocity().x, 0.0f));
 		}
+		else if (inputManager->KeyReleased(SDL_SCANCODE_A)) {
+
+			sliding = false;
+		}
 	}
-	else if (!touchingWall) {
+	
+	if (!touchingWall) {
 
 		sliding = false;
 	}
@@ -212,24 +220,6 @@ void Player::Update() {
 
 		GravityModifier(0.2f);
 	}
-
-	//if (touchingWall && inputManager->KeyDown(SDL_SCANCODE_A) && !sliding) {
-
-	//	sliding = true;
-	//	Velocity(Vector2(GetVelocity().x, 0.0f));
-	//	//GravityModifier(1);
-	//}
-	//
-	//if (touchingWall && inputManager->KeyReleased(SDL_SCANCODE_A)) {
-
-	//	sliding = false;
-	//	//GravityModifier(2.5f);
-	//}
-
-	//if (sliding) {
-
-	//	GravityModifier(0.5f);
-	//}
 
 	//printf("X Position: %f , X Velocity: %f\n", GetPosition().x, GetVelocity().x);
 	//printf("Y Position: %f , Y Velocity: %f\n", GetPosition().y, GetVelocity().y);
