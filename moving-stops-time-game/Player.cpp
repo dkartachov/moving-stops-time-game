@@ -150,7 +150,6 @@ void Player::Update() {
 	if (inputManager->KeyDown(SDL_SCANCODE_SPACE) && jumping) {
 
 		jumpTimer += timer->DeltaTime();
-		printf("jump timer = %f\n", jumpTimer);
 
 		if (jumpTimer >= jumpTime) {
 
@@ -159,7 +158,7 @@ void Player::Update() {
 			GravityModifier(1);
 		}
 		else
-			GravityModifier(-1);
+			GravityModifier(0.5f);
 	}
 
 	if (inputManager->KeyReleased(SDL_SCANCODE_SPACE)) {

@@ -7,9 +7,6 @@
 
 class Game {
 public:
-	static Game* Instance();
-	static void Release();
-
 	Game();
 	~Game();
 
@@ -22,7 +19,6 @@ public:
 
 	void Quit();
 private:
-	static Game* instance;
 	const int FRAME_RATE = 60;
 	bool quit;
 

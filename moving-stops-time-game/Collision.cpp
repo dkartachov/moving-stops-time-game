@@ -105,10 +105,10 @@ void Collision::ResolveCollisions() {
 					else
 						collider->Velocity(Vector2(collider->GetVelocity().x, 0.0f));
 
-					if (abs(c->GetVelocity().x) > 0.0f)
+					/*if (abs(c->GetVelocity().x) > 0.0f)
 						collider->Velocity(Vector2(c->GetVelocity().x, collider->GetVelocity().y));
 					else
-						collider->Velocity(Vector2(0.0f, collider->GetVelocity().y));
+						collider->Velocity(Vector2(0.0f, collider->GetVelocity().y));*/
 				}
 			}
 		}

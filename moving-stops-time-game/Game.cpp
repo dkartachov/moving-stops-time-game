@@ -1,20 +1,5 @@
 #include "Game.h"
 
-Game* Game::instance = NULL;
-
-Game* Game::Instance() {
-	if (instance == NULL)
-		instance = new Game();
-
-	return instance;
-}
-
-void Game::Release() {
-
-	delete instance;
-	instance = NULL;
-}
-
 Game::Game() {
 
 	quit = false;

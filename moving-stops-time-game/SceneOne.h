@@ -13,7 +13,10 @@ public:
 
 private:
 	Player* player;
-	PhysicsObject* ground1, * platform, * platform2;
+	PhysicsObject* ground1;
+	PhysicsObject* ground2;
+	PhysicsObject* platform1;
+	PhysicsObject* wall;
 	int platformDirection = 1;
 	int platform2Direction = 1;
 };
